@@ -1,0 +1,100 @@
+/* LOG IN*/
+.form-group--2 .form-input:first-child{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-group--2 .form-input:last-child{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+/* REGISTER*/
+.form-group label{
+    flex-grow: 1;
+    font-size: 1.4rem;
+    color: var(--secondary-color);
+}
+/* MUSIC PLAYER */
+.music-player {
+    max-width: 100%;
+    height: 120px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 2.4rem 6.4rem;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.song {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+.song__thumb {
+    width: 72px;
+}
+.song__desc {
+}
+.song__title {
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+}
+.song__artist {
+    margin-top: 4px;
+    font-size: 1.4rem;
+}
+.heart-outline {
+    font-size: 2rem;
+}
+.player {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 18px;
+}
+.controls {
+    display: flex;
+    gap: 25px;
+}
+.shuffle {
+}
+.play-skip-back {
+}
+.play {
+}
+.play-skip-forward {
+}
+.repeat {
+}
+.timer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 25px;
+}
+#track {
+    width: 480px;
+}
+.current,
+.duration {
+    font-size: 1.4rem;
+}
+.action {
+    display: flex;
+    gap: 25px;
+}
+.volume {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.cloud-download-outline {
+}
+.volume-high {
+}
