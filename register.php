@@ -80,17 +80,17 @@ if (isset($_POST['submit'])){
             <img src="./assets/Logo F5.svg" alt="F5MP3" class="logo" />
             <p class="desc">Trang chia sẻ và tải nhạc trực tuyến</p>
             <div class="form-group form-group--2">
-                <input type="text" class="form-input" placeholder="Họ" name="firstname" value=" <?php echo $firstname; ?>" required>
-                <input type="text" class="form-input" placeholder="Tên" name="lastname" value=" <?php echo $lastname; ?>" required>
+                <input type="text" class="form-input" placeholder="Họ" name="firstname" />
+                <input type="text" class="form-input" placeholder="Tên" name="lastname" />
             </div>
             <div class="form-group">
-                <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" value=" <?php echo $username; ?>" required>
+                <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" />
             </div>
             <div class="form-group">
-                <input type="password" class="form-input" placeholder="Mật khẩu" name="password" value=" <?php echo $_POST['password']; ?>" required>
+                <input type="password" class="form-input" placeholder="Mật khẩu" name="password" />
             </div>
 			<div class="form-group">
-                <input type="password" class="form-input" placeholder="Xác nhận mật khẩu" name="cpassword" value=" <?php echo $_POST['cpassword']; ?>" required>
+                <input type="password" class="form-input" placeholder="Xác nhận mật khẩu" name="cpassword" />
             </div>
             <div class="form-group">
                 <input type="radio" name="upgrade" id="upgrade">

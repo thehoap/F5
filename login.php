@@ -66,10 +66,10 @@ if (isset($_POST['submit'])) {
             <img src="./assets/Logo F5.svg" alt="F5MP3" class="logo" />
             <p class="desc">Trang chia sẻ và tải nhạc trực tuyến</p>
             <div class="form-group">
-                <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" value=" <?php echo $username; ?>"  required>
+                <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" />
             </div>
             <div class="form-group">
-                <input type="password" class="form-input" placeholder="Mật khẩu" name ="password" value=" <?php echo $_POST['password']; ?>"  required>
+                <input type="password" class="form-input" placeholder="Mật khẩu" name ="password" />
             </div>
             <div class="form-group">
                 <button name="submit" class="primary-btn">Đăng nhập</button>
@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
             <a href="" class="desc">Quên mật khẩu?</a>
             <hr />
             <div class="form-group">
-                <button class="primary-btn"><a href="register.php">Đăng ký</button>
+                <button class="primary-btn"><a href="register.php">Đăng ký</a></button>
 		
             </div>
         </form>
