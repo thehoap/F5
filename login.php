@@ -1,14 +1,35 @@
+ <?php 
+
+include 'db_connect.php';
+
+session_start();
+
+error_reporting(0);
+
+if (isset($_POST['submit'])) {
+	$username = $_POST['username'];
+	$password = md5($_POST['password']);
+
+	$sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+	$result = mysqli_query($conn, $sql);
+	if ($result->num_rows > 0) {
+		$row = mysqli_fetch_assoc($result);
+		$_SESSION['currUser'] = $row['username'];
+
+		if($row['type'] == 1){
+			$_SESSION['currAdmin'] = $row['type'];
+			header("location:adminpage.php");
+		}else{
+			header("location:index.php");
+		}
+	} else {
+		echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
+	}
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
-    <? php
-    require("funtion.php");
-
-    if($_SERVER['REQUEST_METHOD']=='POST'){
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        get_user($username, $password);
-    }
-    ?>
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -45,28 +66,20 @@
             <img src="./assets/Logo F5.svg" alt="F5MP3" class="logo" />
             <p class="desc">Trang chia sẻ và tải nhạc trực tuyến</p>
             <div class="form-group">
-                <input
-                    type="text"
-                    class="form-input"
-                    placeholder="Tên đăng nhập"
-                    name = "username"
-                />
+                <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" value=" <?php echo $username; ?>"  required>
             </div>
             <div class="form-group">
-                <input type="password" class="form-input" placeholder="Mật khẩu" 
-                name="password" 
-                />
+                <input type="password" class="form-input" placeholder="Mật khẩu" name ="password" value=" <?php echo $_POST['password']; ?>"  required>
             </div>
             <div class="form-group">
-                <button type = "submit" class="primary-btn">Đăng nhập</button>
+                <button name="submit" class="primary-btn">Đăng nhập</button>
             </div>
             <a href="" class="desc">Quên mật khẩu?</a>
             <hr />
             <div class="form-group">
-                <button class="primary-btn">Đăng ký</button>
+                <button class="primary-btn"><a href="register.php">Đăng ký</button>
+		
             </div>
         </form>
     </body>
-    
 </html>
-
