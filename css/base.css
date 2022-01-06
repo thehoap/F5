@@ -17,6 +17,7 @@ html {
     box-sizing: border-box;
 }
 body {
+    height: 100vh;
     background-color: var(--secondary-color);
 }
 ion-icon {
@@ -31,7 +32,7 @@ hr {
 }
 a {
     text-decoration: none;
-    transition: opacity 0.25s ease;
+    transition: all 0.25s ease;
 }
 a:hover {
     opacity: 0.8;
@@ -41,6 +42,10 @@ button,
 textarea {
     font-family: "Lato", sans-serif;
 }
+li {
+    list-style: none;
+}
+/* Login and Register Form */
 .form {
     display: flex;
     flex-direction: column;
@@ -74,7 +79,7 @@ textarea {
     margin-bottom: 10px;
     cursor: pointer;
 }
-.form-group{
+.form-group {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -82,7 +87,7 @@ textarea {
     width: 100%;
     margin-bottom: 1.4rem;
 }
-.form-input{
+.form-input {
     width: 100%;
     display: inline-block;
     padding: 2rem;
@@ -92,32 +97,43 @@ textarea {
     outline: none;
     transition: border 0.25s linear;
 }
-.form-input:focus{
+.form-input:focus {
     border: 1px solid var(--primary-color);
 }
-.range {
-    -webkit-appearance: none;
-    width: 100%;
-    background: transparent;
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-areas:
+        "sidebar header header header header header header header header header header"
+        "sidebar main main main main main main main main main main"
+        "sidebar main main main main main main main main main main"
+        "sidebar main main main main main main main main main main"
+        "sidebar main main main main main main main main main main"
+        "sidebar main main main main main main main main main main"
+        "footer footer footer footer footer footer footer footer footer footer footer"
+        "footer footer footer footer footer footer footer footer footer footer footer";
+    min-height: 100vh;
 }
-.range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: 1px solid var(--half-secondary-color);
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    background: var(--secondary-color);
-    cursor: pointer;
-    margin-top: -6px;
+.sidebar {
+    grid-area: sidebar;
 }
-.range::-webkit-slider-runnable-track {
-    width: 100%;
-    border-radius: 5px;
-    height: 4px;
-    cursor: pointer;
-    background: var(--half-secondary-color);
+.header {
+    height: 120px;
+    grid-area: header;
+}
+.main {
+    grid-area: main;
+}
+.music-player {
+    grid-area: footer;
 }
 
-.range:focus::-webkit-slider-runnable-track {
-    background: var(--secondary-color);
+/* BRIGDE */
+.user:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    height: 8px;
 }
