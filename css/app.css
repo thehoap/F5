@@ -43,8 +43,9 @@
 /* HEADER */
 /* SEARCH ENGINE */
 .header{
-    --gap: 6rem;
-    display: fixed;
+    --gap: 2.4rem;
+    position: fixed;
+    display: flex;
     justify-content: space-between;
     height: 64px;
     padding: 1.2rem var(--gap);
@@ -60,8 +61,6 @@
     color: var(--secondary-color);
     padding: 0.8rem 1.4rem;
     border-radius: 3rem;
-    position: absolute;
-    left: var(--gap);
 }
 .search-input {
     flex-grow: 1;
@@ -84,7 +83,6 @@
     position: absolute;
     right: var(--gap);
     cursor: pointer;
-    height: 40px;
 }
 .user-avatar {
     width: 4rem;
@@ -121,15 +119,15 @@
 }
 /* MAIN */
 .main{
-    height: auto;
+    /* height: auto; */
 }
 /* MUSIC PLAYER */
 .music-player {
-    max-width: 100%;
-    height: 120px;
+    /* max-width: 100%; */
+    /* height: 120px; */
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    padding: 2.4rem;
+    padding: 1.2rem 2.4rem;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -169,7 +167,7 @@
     justify-content: space-between;
     flex-direction: column;
     width: 100%;
-    gap: 18px;
+    gap: 12px;
 }
 .controls {
     display: flex;

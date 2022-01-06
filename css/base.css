@@ -45,6 +45,10 @@ textarea {
 li {
     list-style: none;
 }
+/* Logo */
+.logo{
+    width: 50%;
+}
 /* Login and Register Form */
 .form {
     display: flex;
@@ -103,29 +107,23 @@ li {
 /* Grid */
 .grid {
     display: grid;
-    grid-template-areas:
-        "sidebar header header header header header header header header header header"
-        "sidebar main main main main main main main main main main"
-        "sidebar main main main main main main main main main main"
-        "sidebar main main main main main main main main main main"
-        "sidebar main main main main main main main main main main"
-        "sidebar main main main main main main main main main main"
-        "footer footer footer footer footer footer footer footer footer footer footer"
-        "footer footer footer footer footer footer footer footer footer footer footer";
     min-height: 100vh;
+    grid-template-columns: minmax(12rem, 24rem) repeat(11, 1fr);
+    grid-template-rows: repeat(12, 1fr);
 }
 .sidebar {
-    grid-area: sidebar;
+    grid-row-start: 1;
+    grid-row-end: 11;
 }
 .header {
-    height: 120px;
-    grid-area: header;
+    /* height: 120px; */
+    grid-area: 1/2/2/14;
 }
 .main {
-    grid-area: main;
+    grid-area: 2/2/11/14;
 }
 .music-player {
-    grid-area: footer;
+    grid-area: 11/1/12/14;
 }
 
 /* BRIGDE */
