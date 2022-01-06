@@ -2,6 +2,7 @@
     --primary-color: #274c77;
     --secondary-color: #e7ecef;
     --half-secondary-color: #516f91;
+    --brigde: 8px;
 }
 *,
 *:after,
@@ -106,6 +107,7 @@ li {
 }
 /* Grid */
 .grid {
+    /* position: relative; */
     display: grid;
     min-height: 100vh;
     grid-template-columns: minmax(12rem, 24rem) repeat(11, 1fr);
@@ -113,17 +115,17 @@ li {
 }
 .sidebar {
     grid-row-start: 1;
-    grid-row-end: 11;
+    grid-row-end: 13;
 }
 .header {
     /* height: 120px; */
-    grid-area: 1/2/2/14;
+    grid-area: 1/2/2/13;
 }
 .main {
-    grid-area: 2/2/11/14;
+    grid-area: 2/2/10/13;
 }
 .music-player {
-    grid-area: 11/1/12/14;
+    grid-area: 10/1/12/13;
 }
 
 /* BRIGDE */
@@ -133,5 +135,5 @@ li {
     top: 100%;
     right: 0;
     left: 0;
-    height: 8px;
+    height: var(--brigde);
 }
