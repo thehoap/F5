@@ -4,7 +4,8 @@ const prevBtn = document.querySelector(".play-skip-back");
 const nextBtn = document.querySelector(".play-skip-forward");
 const current = document.querySelector(".current");
 const durationTime = document.querySelector(".duration");
-const rangeBar = document.querySelector(".range");
+const track = document.getElementById("track");
+const volume = document.getElementById("volume");
 let isPlaying = true;
 let indexSong = 0;
 const musics = [
@@ -58,8 +59,8 @@ function playPause() {
 }
 function displayTimer() {
     const { duration, currentTime } = song;
-    rangeBar.max = duration;
-    rangeBar.value = currentTime;
+    track.max = duration;
+    track.value = currentTime;
     current.textContent = formatTimer(currentTime);
     if (!duration) {
         durationTime.textContent = "00:00";
@@ -74,7 +75,7 @@ function formatTimer(number) {
         seconds < 10 ? "0" + seconds : seconds
     }`;
 }
-rangeBar.addEventListener("change", handleChangeBar);
+track.addEventListener("change", handleChangeBar);
 function handleChangeBar() {
-    song.currentTime = rangeBar.value;
+    song.currentTime = track.value;
 };
