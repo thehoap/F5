@@ -75,35 +75,60 @@ if (isset($_POST['submit'])){
         <link rel="stylesheet" href="./css/app.css" />
     </head>
     <body>
-	<div class="container">
         <form action="" method="POST" class="form">
             <img src="./assets/Logo F5.svg" alt="F5MP3" class="logo" />
             <p class="desc">Trang chia sẻ và tải nhạc trực tuyến</p>
             <div class="form-group form-group--2">
-                <input type="text" class="form-input" placeholder="Họ" name="firstname" />
-                <input type="text" class="form-input" placeholder="Tên" name="lastname" />
+                <input
+                    type="text"
+                    class="form-input"
+                    placeholder="Họ"
+                    name="firstname"
+                />
+                <input
+                    type="text"
+                    class="form-input"
+                    placeholder="Tên"
+                    name="lastname"
+                />
             </div>
             <div class="form-group">
-                <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" />
+                <input
+                    type="text"
+                    class="form-input"
+                    placeholder="Tên đăng nhập"
+                    name="username"
+                />
             </div>
             <div class="form-group">
-                <input type="password" class="form-input" placeholder="Mật khẩu" name="password" />
-            </div>
-			<div class="form-group">
-                <input type="password" class="form-input" placeholder="Xác nhận mật khẩu" name="cpassword" />
+                <input
+                    type="password"
+                    class="form-input"
+                    placeholder="Mật khẩu"
+                    name="password"
+                />
             </div>
             <div class="form-group">
-                <input type="radio" name="upgrade" id="upgrade">
+                <input
+                    type="password"
+                    class="form-input"
+                    placeholder="Xác nhận mật khẩu"
+                    name="cpassword"
+                />
+            </div>
+            <div class="form-group">
+                <input type="radio" name="upgrade" id="upgrade" />
                 <label for="upgrade">Tôi muốn trở thành nghệ sĩ</label>
             </div>
             <div class="form-group">
-                <button name="submit" class="primary-btn">Đăng ký</button>
+                <input type="file" id="img" name="img" accept="image/*" />
             </div>
             <div class="form-group">
-                <input type="file" name="" id="">
-                <input type="file" name="" id="">
+                <button class="primary-btn">Đăng ký</button>
             </div>
-			<p class="login-register-text"> Đã có tài khoản<a href="login.php">Đăng nhập</a>.</p>
+            <p class="login-register-text">
+                Đã có tài khoản<a href="login.php">Đăng nhập</a>.
+            </p>
         </form>
     </body>
 </html>

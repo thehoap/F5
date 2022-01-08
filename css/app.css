@@ -16,7 +16,7 @@
 /* SIDEBAR */
 .sidebar {
     position: fixed;
-    /* display: flex; */
+    z-index: 99;
     width: 24rem;
     background-color: var(--half-secondary-color);
     padding: 1rem;
@@ -59,6 +59,7 @@
     justify-content: space-between;
     height: 64px;
     padding: 1.2rem var(--gap);
+    background-color: var(--secondary-color);
 }
 .search-engine {
     /* position: fixed; */
@@ -123,7 +124,7 @@
     height: auto;
     padding: 0.4rem;
     border-radius: 1rem;
-    box-shadow: 0 0 4px var(--primary-color);
+    box-shadow: 0 0 4px var(--primary-color), 0px 0px 2px var(--secondary-color);
 }
 .sub-menu .nav-link:hover {
     background-color: var(--secondary-color);
@@ -133,11 +134,10 @@
 /* MAIN */
 .main {
     height: 100vh;
+    padding: 1.2rem 2.4rem;
 }
 /* MUSIC PLAYER */
 .music-player {
-    /* max-width: 100%; */
-    /* height: 120px; */
     background-color: var(--primary-color);
     color: var(--secondary-color);
     padding: 1.2rem 2.4rem;
@@ -145,6 +145,7 @@
     bottom: 0;
     right: 0;
     left: 0;
+    z-index: 999;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -282,4 +283,93 @@
 .comment__name.user-name {
 }
 .comment__content.desc {
+}
+/* CARDS */
+.cards {
+    margin-bottom: 3.2rem;
+}
+.cards-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 2rem;
+}
+.cards-title {
+    display: inline-block;
+    color: var(--primary-color);
+    font-size: 2.8rem;
+}
+.cards-more {
+    display: inline-block;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+.cards-bottom{
+    display: flex;
+    justify-content: space-between;
+    gap: 2.4rem;
+}
+.card {
+    display: block;
+    width: 218px;
+    height: 278px;
+    background-color: var(--half-secondary-color);
+    padding: 1.6rem;
+    border-radius: 6px;
+}
+.card-img {
+    width: 186px;
+    height: 186px;
+    object-fit: cover;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+.card-title {
+    color: var(--secondary-color);
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+}
+.card-desc {
+    color: var(--secondary-color);
+    font-size: 1.4rem;
+}
+/* SONG PAGE */
+/* COVER */
+.cover{
+    max-width: 1000px;
+    width: 100%;
+    height: 360px;
+    background-color: var(--half-secondary-color);
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    border-radius: 6px;
+    margin-bottom: 3.2rem;
+}
+.cover-content{
+
+}
+.cover-title{
+    color: var(--secondary-color);
+    font-size: 3.2rem;
+    line-height: 1.4;
+}
+.cover-desc{
+    color: var(--secondary-color);
+    font-size: 1.6rem;
+
+}
+.cover-thumb{
+    width: 311px;
+    height: 311px;
+    object-fit: cover;
+}
+/* INTERACTION */
+.interaction{
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
