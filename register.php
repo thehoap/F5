@@ -3,43 +3,62 @@ include 'db_connect.php';
 error_reporting(0);
 session_start();
 
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['currUser'])) {
     header("Location: login.php");
 }
 if (isset($_POST['submit'])){
-	$firstname = $_POST['firstname'];
-	$lastname = $_POST['lastname'];
-	$username = $_POST['username'];
-	$password = md5($_POST['password']);
-	$cpassword = md5($_POST['cpassword']);
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $username = $_POST['username'];
+    $password = md5($_POST['password']);
+    $cpassword = md5($_POST['cpassword']);
+    $type=$_POST['type'];
+    $errors= array();
+    $file_name = $_FILES['image']['name'];
+    $file_size = $_FILES['image']['size']; 
+    $file_tmp = $_FILES['image']['tmp_name'];
+    $file_type = $_FILES['image']['type'];
+    $file_parts =explode('.',$_FILES['image']['name']);
+    $file_ext=strtolower(end($file_parts));
+    $expensions= array("jpeg","jpg","png");
+    if(in_array($file_ext,$expensions)=== false){
+    $errors[]="Chỉ hỗ trợ upload file JPEG hoặc PNG.";
+}
+    if($file_size > 2097152) {
+    $errors[]='Kích thước file không được lớn hơn 2MB';
+}
+    $image = $_FILES['image']['name'];
+    $target = "photo/".basename($image);
 
-	if ($password == $cpassword) {
-		$sql = "SELECT * FROM users WHERE username='$username'";
-		$result = mysqli_query($conn, $sql);
-		if (!$result->num_rows > 0) {
-			$sql = "INSERT INTO users (firstname, lastname, username, password)
-					VALUES ('$firstname', '$lastname', '$username', '$password')";
-			$result = mysqli_query($conn, $sql);
-			if ($result) {
-				echo "<script>alert('Đăng ký thành công.')</script>";
-				$firstname = "";
-				$lastname = "";
-				$username = "";
-				$_POST['password'] = "";
-				$_POST['cpassword'] = "";
-			} else {
-				echo "<script>alert('Woops! Something Wrong Went.')</script>";
-			}
-		} else {
-			echo "<script>alert('Tên đặng nhập đã đc dùng.')</script>";
-		}
-		
-	} else {
-		echo "<script>alert('Mật khẩu không trùng')</script>";
-	}
+    if ($password == $cpassword) {
+        $sql = "SELECT * FROM users WHERE username='$username'";
+        $result = mysqli_query($conn, $sql);
+        if (!$result->num_rows > 0) {
+            $sql = "INSERT INTO users (firstname, lastname, username, password, type, image)
+                    VALUES ('$firstname', '$lastname', '$username', '$password', '$type', '$image')";
+            $result = mysqli_query($conn, $sql);
+            if ($result) {
+                echo "<script>alert('Đăng ký thành công.')</script>";
+                $firstname = "";
+                $lastname = "";
+                $username = "";
+                $_POST['password'] = "";
+                $_POST['cpassword'] = "";
+                header("Location: login.php");
+            
+            } else {
+                echo "<script>alert('Woops! Something Wrong Went.')</script>";
+            }
+        } else {
+            echo "<script>alert('Tên đặng nhập đã đc dùng.')</script>";
+        }
+        
+    } else {
+        echo "<script>alert('Mật khẩu không trùng')</script>";
+    }
 }
 
-	
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,8 +94,8 @@ if (isset($_POST['submit'])){
         <link rel="stylesheet" href="./css/app.css" />
     </head>
     <body>
-	<div class="container">
-        <form action="" method="POST" class="form">
+    <div class="container">
+        <form action="" method="POST" enctype="multipart/form-data" class="form">
             <img src="./assets/Logo F5.svg" alt="F5MP3" class="logo" />
             <p class="desc">Trang chia sẻ và tải nhạc trực tuyến</p>
             <div class="form-group form-group--2">
@@ -89,21 +108,25 @@ if (isset($_POST['submit'])){
             <div class="form-group">
                 <input type="password" class="form-input" placeholder="Mật khẩu" name="password" />
             </div>
-			<div class="form-group">
+            <div class="form-group">
                 <input type="password" class="form-input" placeholder="Xác nhận mật khẩu" name="cpassword" />
             </div>
             <div class="form-group">
-                <input type="radio" name="upgrade" id="upgrade">
-                <label for="upgrade">Tôi muốn trở thành nghệ sĩ</label>
+                <input type="radio" name="type" value="3">
+                <label for="type">Đăng ký nghệ sĩ</label>
+            </div>
+            <div class="form-group">
+                <input type="radio" name="type" value="2">
+                <label for="type">Đăng ký người nghe</label>
+            </div>
+             <div class="form-group" >
+             <input type="file" name="image"> 
             </div>
             <div class="form-group">
                 <button name="submit" class="primary-btn">Đăng ký</button>
             </div>
-            <div class="form-group">
-                <input type="file" name="" id="">
-                <input type="file" name="" id="">
-            </div>
-			<p class="login-register-text"> Đã có tài khoản<a href="login.php">Đăng nhập</a>.</p>
+           
+            <p class="login-register-text"> Đã có tài khoản<a href="login.php">Đăng nhập</a>.</p>
         </form>
     </body>
 </html>
