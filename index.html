@@ -64,11 +64,17 @@
                 <div class="search-engine">
                     <ion-icon name="search"></ion-icon>
                     <input
-                        type="text"
-                        class="search-input"
-                        placeholder="Tên nghệ sĩ hoặc bài hát"
+                        type="text" name="search1" id="search"
+                        class="search-input" 
+                        placeholder="Tên nghệ sĩ hoặc bài hát" autocomplete="off" required
                     />
                     <ul class="search-hints"></ul>
+                </div>
+                <!-- Cho t them vao-->
+                <div class="col-md-5" style="position: absolute;margin-top: 38px;margin-left: 15px; height:250px; overflow-y:auto;">
+                    <div class="list-group" id="show-list">
+                      <!-- Here autocomplete list will be display -->
+                    </div>
                 </div>
                 <div class="user">
                     <img
@@ -217,5 +223,7 @@
             </div>
         </div>
         <script src="app.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="search.js"></script>
     </body>
 </html>
