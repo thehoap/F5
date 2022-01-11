@@ -101,7 +101,7 @@
                         <a href="" class="cards-more">Xem tất cả</a>
                     </div>
                     <div class="cards-bottom">
-                        <a href="" class="card">
+                        <a href="songpage.html" class="card">
                             <img
                                 src="./assets/img/tron tim.jpg"
                                 alt=""
@@ -133,7 +133,7 @@
                         <a href="" class="cards-more">Xem tất cả</a>
                     </div>
                     <div class="cards-bottom">
-                        <a href="./index copy.html" class="card">
+                        <a href="" class="card">
                             <img
                                 src="./assets/img/den-vau.jpg"
                                 alt=""
@@ -160,10 +160,9 @@
                         <h4 class="song__title">Trốn tìm</h4>
                         <p class="song__artist">Đen Vâu</p>
                     </div>
-                    <ion-icon
-                        class="heart-outline"
-                        name="heart-outline"
-                    ></ion-icon>
+                    <div class="heart" onclick="favorite(this)">
+                        <ion-icon name="heart-outline"></ion-icon>
+                    </div>
                 </div>
                 <div class="player">
                     <div class="controls">
@@ -197,20 +196,27 @@
                     </div>
                 </div>
                 <div class="action">
-                    <ion-icon
-                        class="cloud-download-outline"
-                        name="cloud-download-outline"
-                    ></ion-icon>
-                    <div class="volume">
+                    <a href="./assets/music/tron-tim-den-vau.mp3" download>
                         <ion-icon
-                            class="volume-high"
-                            name="volume-high"
+                            class="cloud-download-outline"
+                            name="cloud-download-outline"
                         ></ion-icon>
+                    </a>
+                    <div class="volume">
+                        <div class="volume-icon">
+                            <ion-icon
+                                class="volume-high"
+                                name="volume-high"
+                            ></ion-icon>
+                        </div>
                         <input
                             type="range"
                             name="volume"
                             id="volume"
                             class="range"
+                            min="0"
+                            max="1"
+                            step="0.01"
                         />
                     </div>
                 </div>
