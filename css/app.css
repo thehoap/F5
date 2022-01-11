@@ -315,7 +315,7 @@
     display: block;
     width: 218px;
     height: 278px;
-    background-color: var(--half-secondary-color);
+    background-color: var(--primary-color);
     padding: 1.6rem;
     border-radius: 6px;
 }

@@ -1,11 +1,13 @@
 const song = document.getElementById("song");
+const heart = document.querySelector(".heart");
 const playBtn = document.querySelector(".play");
 const prevBtn = document.querySelector(".play-skip-back");
 const nextBtn = document.querySelector(".play-skip-forward");
 const current = document.querySelector(".current");
 const durationTime = document.querySelector(".duration");
 const track = document.getElementById("track");
-const volume = document.getElementById("volume");
+const volumeIcon = document.querySelector(".volume-icon");
+const volumeBar = document.getElementById("volume");
 let isPlaying = true;
 let indexSong = 0;
 const musics = [
@@ -13,6 +15,15 @@ const musics = [
     "tron-tim-den-vau.mp3",
     "vung-ki-uc-chillies.mp3",
 ];
+function favorite(heart) {
+    if (heart.innerHTML.includes('name="heart-outline"')) {
+        heart.querySelector("ion-icon").setAttribute("name", "heart");
+    } else {
+        heart.querySelector("ion-icon").setAttribute("name", "heart-outline");
+    }
+}
+song.volume = 1;
+volumeBar.value = 1;
 displayTimer();
 let timer;
 song.setAttribute("src", `./assets/music/${musics[indexSong]}`);
@@ -78,4 +89,20 @@ function formatTimer(number) {
 track.addEventListener("change", handleChangeBar);
 function handleChangeBar() {
     song.currentTime = track.value;
-};
+}
+volumeBar.addEventListener("change", handleChangeVolume);
+function handleChangeVolume() {
+    song.volume = volumeBar.value;
+    if (volumeBar.value <= 1) {
+        volumeIcon.innerHTML = `<ion-icon name="volume-high"></ion-icon>`;
+    }
+    if (volumeBar.value <= 0.67) {
+        volumeIcon.innerHTML = `<ion-icon name="volume-medium"></ion-icon>`;
+    }
+    if (volumeBar.value <= 0.33) {
+        volumeIcon.innerHTML = `<ion-icon name="volume-low"></ion-icon>`;
+    }
+    if (volumeBar.value == 0) {
+        volumeIcon.innerHTML = `<ion-icon name="volume-mute"></ion-icon>`;
+    }
+}
