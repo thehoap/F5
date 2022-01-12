@@ -3,8 +3,8 @@ const heart = document.querySelector(".heart");
 const playBtn = document.querySelector(".play");
 const prevBtn = document.querySelector(".play-skip-back");
 const nextBtn = document.querySelector(".play-skip-forward");
-const current = document.querySelector(".current");
-const durationTime = document.querySelector(".duration");
+const current = document.querySelectorAll(".current");
+const durationTime = document.querySelectorAll(".duration");
 const track = document.getElementById("track");
 const volumeIcon = document.querySelector(".volume-icon");
 const volumeBar = document.getElementById("volume");
@@ -85,11 +85,17 @@ function displayTimer() {
     const { duration, currentTime } = song;
     track.max = duration;
     track.value = currentTime;
-    current.textContent = formatTimer(currentTime);
+    for (let i = 0; i < current.length; i++) {
+        current[i].textContent = formatTimer(currentTime);
+    }
     if (!duration) {
-        durationTime.textContent = "00:00";
+        for (let i = 0; i < durationTime.length; i++){
+            durationTime[i].textContent = "00:00";
+        }
     } else {
-        durationTime.textContent = formatTimer(duration);
+        for (let i = 0; i < durationTime.length; i++) {
+            durationTime[i].textContent = formatTimer(duration);
+        }
     }
 }
 function formatTimer(number) {
@@ -102,6 +108,7 @@ function formatTimer(number) {
 track.addEventListener("change", handleChangeBar);
 function handleChangeBar() {
     song.currentTime = track.value;
+    wavesurfer.setCurrentTime(track.value);
 }
 volumeBar.addEventListener("change", handleChangeVolume);
 function handleChangeVolume() {
