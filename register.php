@@ -120,7 +120,7 @@ if (isset($_POST['submit'])){
                 <label for="type">Đăng ký người nghe</label>
             </div>
              <div class="form-group" >
-             <input type="file" name="image"> 
+             <input type="file" name="image" id = "image"> 
             </div>
             <div class="form-group">
                 <button name="submit" class="primary-btn">Đăng ký</button>
