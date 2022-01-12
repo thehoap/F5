@@ -336,7 +336,7 @@
     top: 50%;
     right: 0;
 }
-.cover-content .current{
+.cover-content .current {
     left: 0;
     right: initial;
 }
@@ -363,21 +363,16 @@
 .comment {
     display: flex;
     align-items: flex-start;
-    /* justify-content: space-between; */
-    gap: 8px;
+    justify-content: space-between;
+    gap: 12px;
     margin-bottom: 25px;
 }
 #comment-input {
-    flex-grow: 1;
+    max-width: 552px;
+    width: 100%;
 }
 .comment-btn {
     flex-grow: 1;
-    margin: 0;
-    display: block;
-}
-.comment-bottom {
-}
-.comment {
 }
 .comment__desc {
     flex-grow: 1;
