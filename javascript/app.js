@@ -15,6 +15,15 @@ const musics = [
     "tron-tim-den-vau.mp3",
     "vung-ki-uc-chillies.mp3",
 ];
+// Waveform
+var wavesurfer = WaveSurfer.create({
+    container: ".waveform",
+    waveColor: "#e7ecef",
+    progressColor: "#274c77",
+    barWidth: 2,
+    cursorColor: "transparent",
+});
+wavesurfer.setVolume(0);
 function favorite(heart) {
     if (heart.innerHTML.includes('name="heart-outline"')) {
         heart.querySelector("ion-icon").setAttribute("name", "heart");
@@ -52,10 +61,14 @@ function changeSong(direction) {
         isPlaying = true;
     }
     song.setAttribute("src", `./assets/music/${musics[indexSong]}`);
-    playPause();
+    playPauseTrack();
 }
-playBtn.addEventListener("click", playPause);
-function playPause() {
+wavesurfer.load(`./assets/music/${musics[indexSong]}`);
+playBtn.addEventListener("click", playPauseTrack);
+function playPauseTrack() {
+    wavesurfer.playPause();
+    console.log(wavesurfer.getCurrentTime());
+    console.log(track.value);
     if (isPlaying) {
         song.play();
         playBtn.innerHTML = `<ion-icon name="pause"></ion-icon>`;

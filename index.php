@@ -36,6 +36,6 @@
             <?php include ("templates/main.html");?>
             <?php include ("templates/musicplayer.html");?>
         </div>
-        <script src="app.js"></script>
+        <script src="javascript/app.js"></script>
     </body>
 </html>

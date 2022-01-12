@@ -36,12 +36,11 @@
         <main class="main">
             <section class="cover">
                 <div class="cover-content">
-                    <h3 class="cover-title">Trốn tìm</h3>
-                    <span class="cover-desc">Đen Vâu</span>
-                    <img
-                        src="./assets/img/waveform-1640452797435 1.png"
-                        alt=""
-                    />
+                    <div>
+                        <h3 class="cover-title">Trốn tìm</h3>
+                        <span class="cover-desc">Đen Vâu</span>
+                    </div>
+                    <div class="waveform"></div>
                 </div>
                 <img
                     src="./assets/img/tron tim.jpg"
@@ -76,7 +75,9 @@
                             class="form-input"
                             placeholder="Bạn nghĩ gì về bài nhạc này? "
                         ></textarea>
-                        <button class="primary-btn comment-btn">Bình luận</button>
+                        <button class="primary-btn comment-btn">
+                            Bình luận
+                        </button>
                     </form>
                     <ul class="comment-bottom">
                         <li class="comment">
@@ -91,8 +92,8 @@
                                 </span>
                                 <p class="comment__content">
                                     Rất thích những bài của Đen. Ko cần phải có
-                                    những con beat ồn ào, dữ dội. Chỉ cần nhẹ nhàng
-                                    thôi mà sâu thấm lòng người
+                                    những con beat ồn ào, dữ dội. Chỉ cần nhẹ
+                                    nhàng thôi mà sâu thấm lòng người
                                 </p>
                             </div>
                         </li>
@@ -107,11 +108,11 @@
                                     Tài Nguyễn Hoàng Phú
                                 </span>
                                 <p class="comment__content">
-                                    Bài hát nay mang một “cái tôi trong âm nhạc” của
-                                    Đen rất rõ. Vì vậy hơi khó cảm được với đại đa
-                                    số công chúng. Những ai đã trải qua thì mới thấy
-                                    được cái hay “rất riêng” và “độc quyền” trong
-                                    Trốn Tìm :3
+                                    Bài hát nay mang một “cái tôi trong âm nhạc”
+                                    của Đen rất rõ. Vì vậy hơi khó cảm được với
+                                    đại đa số công chúng. Những ai đã trải qua
+                                    thì mới thấy được cái hay “rất riêng” và
+                                    “độc quyền” trong Trốn Tìm :3
                                 </p>
                             </div>
                         </li>
@@ -126,16 +127,87 @@
                                     Hồng Nguyễn
                                 </span>
                                 <p class="comment__content">
-                                    1 tháng trước Cám ơn Đen Vâu . Nhạc và lời bài
-                                    hát thật sự rất rất hay ... nghe hoài nghe mãi
-                                    mà vẫn thích nghe . Chúc mừng ĐEN VÂU nhé
-                                    👍👍👏👏👏
+                                    1 tháng trước Cám ơn Đen Vâu . Nhạc và lời
+                                    bài hát thật sự rất rất hay ... nghe hoài
+                                    nghe mãi mà vẫn thích nghe . Chúc mừng ĐEN
+                                    VÂU nhé 👍👍👏👏👏
                                 </p>
                             </div>
                         </li>
                     </ul>
-            </section>
+                </section>
             </section>
         </main>
+        <div class="music-player">
+            <div class="song">
+                <img
+                    src="./assets/img/tron tim.jpg"
+                    alt=""
+                    class="song__thumb"
+                />
+                <div class="song__desc">
+                    <h4 class="song__title">Trốn tìm</h4>
+                    <p class="song__artist">Đen Vâu</p>
+                </div>
+                <div class="heart" onclick="favorite(this)">
+                    <ion-icon name="heart-outline"></ion-icon>
+                </div>
+            </div>
+            <div class="player">
+                <div class="controls">
+                    <ion-icon class="shuffle" name="shuffle"></ion-icon>
+                    <ion-icon
+                        class="play-skip-back"
+                        name="play-skip-back"
+                    ></ion-icon>
+                    <div class="play">
+                        <ion-icon class="play-icon" name="play"></ion-icon>
+                    </div>
+                    <ion-icon
+                        class="play-skip-forward"
+                        name="play-skip-forward"
+                    ></ion-icon>
+                    <ion-icon class="repeat" name="repeat"></ion-icon>
+                </div>
+                <div class="timer">
+                    <div class="current">1:02</div>
+                    <input type="range" name="track" id="track" class="range" />
+                    <audio
+                        src="./assets/music/tron-tim-den-vau.mp3"
+                        id="song"
+                    ></audio>
+                    <div class="duration">4:08</div>
+                </div>
+            </div>
+            <div class="action">
+                <a href="./assets/music/tron-tim-den-vau.mp3" download>
+                    <ion-icon
+                        class="cloud-download-outline"
+                        name="cloud-download-outline"
+                    ></ion-icon>
+                </a>
+                <div class="volume">
+                    <div class="volume-icon">
+                        <ion-icon
+                            class="volume-high"
+                            name="volume-high"
+                        ></ion-icon>
+                    </div>
+                    <input
+                        type="range"
+                        name="volume"
+                        id="volume"
+                        class="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/wavesurfer.js"></script>
+        <script src="javascript/waveform.js"></script>
+        <script src="javascript/app.js"></script>
     </body>
 </html>

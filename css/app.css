@@ -241,49 +241,6 @@
 }
 .volume-high {
 }
-/* COMMENT */
-.comment-box {
-    max-width: 625px;
-    width: 100%;
-}
-.comment-top,
-.comment {
-    display: flex;
-    align-items: flex-start;
-    /* justify-content: space-between; */
-    gap: 8px;
-    margin-bottom: 25px;
-}
-#comment-input {
-    flex-grow: 1;
-}
-.comment-btn {
-    flex-grow: 1;
-    margin: 0;
-    display: block;
-}
-.comment-bottom {
-}
-.comment {
-}
-.comment__desc {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 6px;
-}
-.comment__content {
-    text-align: justify;
-    font-size: 1.4rem;
-    color: var(--primary-color);
-}
-.desc {
-}
-.comment__name.user-name {
-}
-.comment__content.desc {
-}
 /* CARDS */
 .cards {
     margin-bottom: 3.2rem;
@@ -340,16 +297,20 @@
 .cover{
     max-width: 1000px;
     width: 100%;
-    height: 360px;
+    height: 280px;
     background-color: var(--half-secondary-color);
     display: flex;
     justify-content: space-between;
+    gap: 8px;
     padding: 2rem;
     border-radius: 6px;
     margin-bottom: 3.2rem;
 }
 .cover-content{
-
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .cover-title{
     color: var(--secondary-color);
@@ -362,8 +323,8 @@
 
 }
 .cover-thumb{
-    width: 311px;
-    height: 311px;
+    width: 240px;
+    height: 240px;
     object-fit: cover;
 }
 /* INTERACTION */
@@ -372,4 +333,49 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    gap: 4rem;
+}
+/* COMMENT */
+.comment-box {
+    /* max-width: 725px;
+    width: 100%; */
+    flex-grow: 1;
+}
+.comment-top,
+.comment {
+    display: flex;
+    align-items: flex-start;
+    /* justify-content: space-between; */
+    gap: 8px;
+    margin-bottom: 25px;
+}
+#comment-input {
+    flex-grow: 1;
+}
+.comment-btn {
+    flex-grow: 1;
+    margin: 0;
+    display: block;
+}
+.comment-bottom {
+}
+.comment {
+}
+.comment__desc {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+}
+.comment__content {
+    text-align: justify;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+}
+.desc {
+}
+.comment__name.user-name {
+}
+.comment__content.desc {
 }
