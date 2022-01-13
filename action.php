@@ -19,13 +19,13 @@
 
     if ($result) {
       foreach ($result1 as $row) {
-        echo '<a href="#" class="list-group-item list-group-item-action border-1">' . $row['artist'] . '</a>';
+        echo '<a href ="#" class = "list">' . $row['artist'] . '</a>';
       }
       foreach ($result as $row) {
-        echo '<a href="#" class="list-group-item list-group-item-action border-1">' . $row['name_songs'] . '</a>';
+        echo '<a href="#" class = "list">' . $row['name_songs'] . '</a>';
       }
     } else {
-      echo '<p class="list-group-item border-1">No Record</p>';
+      echo '<p class ="list2">No Record</p>';
     }
   }
 ?>
