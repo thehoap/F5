@@ -5,6 +5,7 @@ const prevBtn = document.querySelector(".play-skip-back");
 const nextBtn = document.querySelector(".play-skip-forward");
 const current = document.querySelectorAll(".current");
 const durationTime = document.querySelectorAll(".duration");
+const rangeInput = document.querySelector(".range");
 const track = document.getElementById("track");
 const volumeIcon = document.querySelector(".volume-icon");
 const volumeBar = document.getElementById("volume");
@@ -89,7 +90,7 @@ function displayTimer() {
         current[i].textContent = formatTimer(currentTime);
     }
     if (!duration) {
-        for (let i = 0; i < durationTime.length; i++){
+        for (let i = 0; i < durationTime.length; i++) {
             durationTime[i].textContent = "00:00";
         }
     } else {
@@ -126,3 +127,7 @@ function handleChangeVolume() {
         volumeIcon.innerHTML = `<ion-icon name="volume-mute"></ion-icon>`;
     }
 }
+volumeBar.addEventListener("input", function () {
+    let x = volumeBar.value * 100;
+    volumeBar.style.background = `linear-gradient(90deg, var(--secondary-color) ${x}%, var(--half-secondary-color) ${x}%)`;
+});
