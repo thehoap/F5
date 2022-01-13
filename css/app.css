@@ -367,12 +367,21 @@
     gap: 12px;
     margin-bottom: 25px;
 }
-#comment-input {
-    max-width: 552px;
+.comment-top{
+    flex-direction: column;
+}
+.comment-top div{
+    display: flex;
+    gap: 12px;
     width: 100%;
+}
+#comment-input {
+    flex-grow: 1;
 }
 .comment-btn {
     flex-grow: 1;
+    /* margin: 0; */
+    margin-right: 0;
 }
 .comment__desc {
     flex-grow: 1;

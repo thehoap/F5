@@ -11,8 +11,8 @@ const volumeBar = document.getElementById("volume");
 let isPlaying = true;
 let indexSong = 0;
 const musics = [
-    "nang-tho-hoang-dung.mp3",
     "tron-tim-den-vau.mp3",
+    "nang-tho-hoang-dung.mp3",
     "vung-ki-uc-chillies.mp3",
 ];
 // Waveform
