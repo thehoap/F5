@@ -28,7 +28,7 @@ if (isset($_POST['submit'])){
     $errors[]='Kích thước file không được lớn hơn 2MB';
 }
     $image = $_FILES['image']['name'];
-    $target = "photo/".basename($image);
+    $target = "assets/avatar/".basename($image);
 
     if ($password == $cpassword) {
         $sql = "SELECT * FROM users WHERE username='$username'";
@@ -37,6 +37,9 @@ if (isset($_POST['submit'])){
             $sql = "INSERT INTO users (firstname, lastname, username, password, type, image)
                     VALUES ('$firstname', '$lastname', '$username', '$password', '$type', '$image')";
             $result = mysqli_query($conn, $sql);
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+
+            }
             if ($result) {
                 echo "<script>alert('Đăng ký thành công.')</script>";
                 $firstname = "";

@@ -1,8 +1,19 @@
 <?php
 session_start();
+include 'db_connect.php';
+
 if(isset($_SESSION['currUser'])){
-    $name = $_SESSION['currUser'];
-   
+    $id=$_SESSION['currUser'];
+
+    $sql = "SELECT * FROM users WHERE id='$id' ";
+    $result = mysqli_query($conn, $sql);
+    if ($result->num_rows > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $name=$row['firstname']." ".$row['lastname'];
+        $path=$row['image'];
+    } else {
+        echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
+    }
 }
 
 ?>
@@ -80,11 +91,9 @@ if(isset($_SESSION['currUser'])){
                     <ul class="search-hints"></ul>
                 </div>
                 <div class="user">
-                    <img
-                        src="./photo/unnamed.jpg"
-                        alt="Avatar"
-                        class="user-avatar"
-                    />
+                    <?php
+                    echo '<img src="./assets/avatar/'.$path.'" alt="Avatar" class="user-avatar" />'; 
+                     ?>
                     <span class="user-name"><?php echo $name; ?></span>
                     <ion-icon name="chevron-down-outline"></ion-icon>
                     <ul class="nav sub-menu">

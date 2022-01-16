@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
 	$result = mysqli_query($conn, $sql);
 	if ($result->num_rows > 0) {
 		$row = mysqli_fetch_assoc($result);
-		$_SESSION['currUser']  = $row['firstname'] ." ".$row['lastname'];
+		$_SESSION['currUser']  = $row['id'];
         
 
 		if($row['type'] == 1){
