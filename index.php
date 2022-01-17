@@ -98,7 +98,7 @@ if(isset($_SESSION['currUser'])){
                     <ion-icon name="chevron-down-outline"></ion-icon>
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="view_user.php" class="nav-link">
                                 <ion-icon name="person"></ion-icon>Trang cá nhân
                             </a>
                         </li>
