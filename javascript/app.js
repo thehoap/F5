@@ -5,10 +5,10 @@ const prevBtn = document.querySelector(".play-skip-back");
 const nextBtn = document.querySelector(".play-skip-forward");
 const current = document.querySelectorAll(".current");
 const durationTime = document.querySelectorAll(".duration");
-const rangeInput = document.querySelector(".range");
 const track = document.getElementById("track");
 const volumeIcon = document.querySelector(".volume-icon");
 const volumeBar = document.getElementById("volume");
+const musicPlayer = document.querySelector(".music-player");
 let isPlaying = true;
 let indexSong = 0;
 const musics = [
@@ -16,15 +16,6 @@ const musics = [
     "nang-tho-hoang-dung.mp3",
     "vung-ki-uc-chillies.mp3",
 ];
-// Waveform
-var wavesurfer = WaveSurfer.create({
-    container: ".waveform",
-    waveColor: "#e7ecef",
-    progressColor: "#274c77",
-    barWidth: 2,
-    cursorColor: "transparent",
-});
-wavesurfer.setVolume(0);
 function favorite(heart) {
     if (heart.innerHTML.includes('name="heart-outline"')) {
         heart.querySelector("ion-icon").setAttribute("name", "heart");
@@ -32,8 +23,6 @@ function favorite(heart) {
         heart.querySelector("ion-icon").setAttribute("name", "heart-outline");
     }
 }
-song.volume = 1;
-volumeBar.value = 1;
 displayTimer();
 let timer;
 song.setAttribute("src", `./assets/music/${musics[indexSong]}`);
@@ -64,12 +53,19 @@ function changeSong(direction) {
     song.setAttribute("src", `./assets/music/${musics[indexSong]}`);
     playPauseTrack();
 }
-wavesurfer.load(`./assets/music/${musics[indexSong]}`);
+// Waveform
+let waveform = WaveSurfer.create({
+    container: ".waveform",
+    waveColor: "#e7ecef",
+    progressColor: "#274c77",
+    barWidth: 2,
+    cursorColor: "transparent",
+});
+waveform.setVolume(0);
+waveform.load(`./assets/music/${musics[indexSong]}`);
 playBtn.addEventListener("click", playPauseTrack);
 function playPauseTrack() {
-    wavesurfer.playPause();
-    console.log(wavesurfer.getCurrentTime());
-    console.log(track.value);
+    waveform.playPause();
     if (isPlaying) {
         song.play();
         playBtn.innerHTML = `<ion-icon name="pause"></ion-icon>`;
@@ -109,8 +105,10 @@ function formatTimer(number) {
 track.addEventListener("change", handleChangeBar);
 function handleChangeBar() {
     song.currentTime = track.value;
-    wavesurfer.setCurrentTime(track.value);
+    waveform.setCurrentTime(track.value);
 }
+song.volume = 1;
+volumeBar.value = 1;
 volumeBar.addEventListener("change", handleChangeVolume);
 function handleChangeVolume() {
     song.volume = volumeBar.value;
@@ -127,7 +125,13 @@ function handleChangeVolume() {
         volumeIcon.innerHTML = `<ion-icon name="volume-mute"></ion-icon>`;
     }
 }
-volumeBar.addEventListener("input", function () {
-    let x = volumeBar.value * 100;
-    volumeBar.style.background = `linear-gradient(90deg, var(--secondary-color) ${x}%, var(--half-secondary-color) ${x}%)`;
+const showRangeProgress = (rangeInput) => {
+    let x = (rangeInput.value / rangeInput.max) * 100;
+    rangeInput.style.background = `linear-gradient(90deg, var(--secondary-color) ${x}%, var(--half-secondary-color) ${x}%)`;
+};
+track.addEventListener("input", (e) => {
+    showRangeProgress(e.target);
+});
+volumeBar.addEventListener("input", (e) => {
+    showRangeProgress(e.target);
 });

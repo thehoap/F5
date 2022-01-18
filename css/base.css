@@ -48,7 +48,7 @@ li {
     list-style: none;
 }
 /* Logo */
-.logo{
+.logo {
     width: 50%;
 }
 /* Login and Register Form */
@@ -138,4 +138,14 @@ li {
     right: 0;
     left: 0;
     height: var(--brigde);
+}
+input[type="range"]::-ms-fill-lower {
+    background-color: #007db5;
+}
+input[type="range"]::-ms-fill-upper {
+    background: linear-gradient(
+        to right,
+        rgba(0, 125, 181, 0.6) var(--buffered-width),
+        rgba(0, 125, 181, 0.2) var(--buffered-width)
+    );
 }

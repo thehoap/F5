@@ -1,3 +1,6 @@
+<?php
+    $a = 1;
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -29,13 +32,16 @@
         <link rel="stylesheet" href="./css/base.css">
         <link rel="stylesheet" href="./css/app.css" />
     </head>
-    <body>
+    <body onload="getMainContent('home')">
         <div class="grid">
-            <?php include ("templates/sidebar.html");?>
-            <?php include ("templates/header.html");?>
-            <?php include ("templates/main.html");?>
-            <?php include ("templates/musicplayer.html");?>
+            <my-sidebar></my-sidebar>
+            <my-header></my-header>
+            <main class="main"></main>
+            <my-music-player></my-music-player>
         </div>
+        <script src="https://unpkg.com/wavesurfer.js"></script>
+        <script src="javascript/main-content.js"></script>
+        <script src="javascript/components.js"></script>
         <script src="javascript/app.js"></script>
     </body>
 </html>

@@ -65,16 +65,23 @@
                 <div class="search-engine">
                     <ion-icon name="search"></ion-icon>
                     <input
-                        type="text" name="search1" id="search"
+                        type="text"
+                        name="search1"
+                        id="search"
                         class="search-input"
-                        placeholder="Tên nghệ sĩ hoặc bài hát" autocomplete="off" required
+                        placeholder="Tên nghệ sĩ hoặc bài hát"
+                        autocomplete="off"
+                        required
                     />
                     <ul class="search-hints"></ul>
                 </div>
                 <!-- Cho t them vao-->
                 <div class="listGroup">
-                    <ul style ="  list-style-type: none;padding: 0;margin: 0;" id="show-list">
-                      <!-- Here autocomplete list will be display -->
+                    <ul
+                        style="list-style-type: none; padding: 0; margin: 0"
+                        id="show-list"
+                    >
+                        <!-- Here autocomplete list will be display -->
                     </ul>
                 </div>
                 <div class="user">
@@ -157,6 +164,7 @@
             </main>
             <!-- Music Player -->
             <div class="music-player">
+                <div class="waveform" style="display: none"></div>
                 <div class="song">
                     <img
                         src="./assets/img/tron tim.jpg"
@@ -229,9 +237,10 @@
                 </div>
             </div>
         </div>
-        <script src="javascript/app.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="search.js"></script>
-        
+        <script src="https://unpkg.com/wavesurfer.js"></script>
+        <script src="javascript/app.js"></script>
     </body>
 </html>
