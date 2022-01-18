@@ -1,5 +1,8 @@
 <?php
-  function pdo_connect_mysql() {
+session_start();
+$_SESSION["links_pictures"] = "./assets/img/songs/";
+$_SESSION["links_songs"] ="./assets/music/songs/";
+function pdo_connect_mysql() {
     // Update the details below with your MySQL details.
     $DATABASE_HOST = 'localhost';
     $DATABASE_USER = 'root';
@@ -12,5 +15,17 @@
     	// If there is an error with the connection, stop the script and display the error.
     	exit('Failed to connect to database!');
     }
-  } 
+  }
+
+function check_artist($a,$list){
+    $z=0;
+    for ($i = 0; $i < count($list); $i++):
+        if($a==$list[$i]['user_id']){
+            $z=1;
+            break;
+        }
+    endfor;
+    return $z;
+} 
+
 ?>
