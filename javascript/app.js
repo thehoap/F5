@@ -9,6 +9,7 @@ const track = document.getElementById("track");
 const volumeIcon = document.querySelector(".volume-icon");
 const volumeBar = document.getElementById("volume");
 const musicPlayer = document.querySelector(".music-player");
+// const playSongBtn = document.querySelector(".play-song-btn");
 let isPlaying = true;
 let indexSong = 0;
 const musics = [
@@ -25,7 +26,7 @@ function favorite(heart) {
 }
 displayTimer();
 let timer;
-song.setAttribute("src", `./assets/music/${musics[indexSong]}`);
+// song.setAttribute("src", `./assets/music/${musics[indexSong]}`);
 prevBtn.addEventListener("click", function () {
     changeSong(-1);
 });
@@ -58,21 +59,25 @@ let waveform = WaveSurfer.create({
     container: ".waveform",
     waveColor: "#e7ecef",
     progressColor: "#274c77",
-    barWidth: 2,
+    barWidth: 3,
     cursorColor: "transparent",
 });
 waveform.setVolume(0);
-waveform.load(`./assets/music/${musics[indexSong]}`);
+// waveform.load(`./assets/music/${musics[indexSong]}`);
+waveform.load(song.getAttribute("src"));
+// playSongBtn.addEventListener("click", playPauseTrack);
 playBtn.addEventListener("click", playPauseTrack);
 function playPauseTrack() {
     waveform.playPause();
     if (isPlaying) {
         song.play();
+        // playSongBtn.innerHTML = `<ion-icon name="pause"></ion-icon>`;
         playBtn.innerHTML = `<ion-icon name="pause"></ion-icon>`;
         isPlaying = false;
         timer = setInterval(displayTimer, 500);
     } else {
         song.pause();
+        // playSongBtn.innerHTML = `<ion-icon name="play"></ion-icon>`;
         playBtn.innerHTML = `<ion-icon name="play"></ion-icon>`;
         isPlaying = true;
         clearInterval(timer);

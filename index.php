@@ -55,7 +55,7 @@ if(isset($_SESSION['currUser'])){
         <link rel="stylesheet" href="./css/app.css" />
         <link rel="stylesheet" href="./css/search.css" />
     </head>
-    <body onload="getMainContent('home')">
+    <body>
         <div class="grid">
             <!-- Sidebar -->
             <div class="sidebar">
@@ -154,7 +154,8 @@ if(isset($_SESSION['currUser'])){
                     </div>
                     <div class="cards-bottom">
                     <?php foreach($songs as $song): ?>
-                        <a href="songpage.php?audio_id=<?=$song['audio_id']?>" class="card">
+                        <a href="songpage.php?audio_id=<?=$song['audio_id']?>" class="card card-song">
+                        <!-- <a class="card card-song"> -->
                             <img
                                 src="<?=($_SESSION["links_pictures"].$song['thumbnail'])?>"
                                 
@@ -165,6 +166,9 @@ if(isset($_SESSION['currUser'])){
                                 <h4 class="card-title"><?=$song['title']?> </h4>
                                 <span class="card-desc"><?=$song['stagename']?></span>
                             </div>
+                            <button class="play-song-btn">
+                                <ion-icon class="play-icon" name="play"></ion-icon> 
+                            </button>
                         </a>
                     <?php endforeach; ?>
                     </div>
