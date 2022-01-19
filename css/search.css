@@ -1,23 +1,24 @@
-.listGroup{
+    .listGroup {
     position: absolute;
     margin-top: 38px;
-    margin-left: 15px; 
-    height:250px; 
-    overflow-y:auto;
+    margin-left: 15px;
+    height: 250px;
+    overflow-y: auto;
 }
-.list{
-    display: block;  border: 1px solid #ddd;
+.list {
+    display: block;
+    border: 1px solid #ddd;
     margin-top: -1px; /* Prevent double borders */
     background-color: #f6f6f6;
     padding: 12px;
     width: 350px;
 }
-.list:hover{
+.list:hover {
     opacity: 1;
     background-color: #140909;
     color: #f6f6f6;
 }
-.list2{
+.list2 {
     border: 1px solid #ddd;
     margin-top: -1px; /* Prevent double borders */
     background-color: #f6f6f6;

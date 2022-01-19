@@ -110,7 +110,7 @@ if(isset($_SESSION['currUser'])){
                         alt="Avatar"
                         class="user-avatar"
                     />
-                    <span class="user-name"><?=$_SESSION['name'] ?></span>
+                    <span class="user-name"><?=$_SESSION['name']?></span>
                     <ion-icon name="chevron-down-outline"></ion-icon>
                     <ul class="nav sub-menu">
                         <li class="nav-item">
@@ -174,7 +174,6 @@ if(isset($_SESSION['currUser'])){
                     <?php endforeach; ?>
                     </div>
                 </section>
-                <footer style="height: 100px"></footer>
             </main>
             <!-- Music Player -->
             <div class="music-player">
