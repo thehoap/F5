@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 19, 2022 lúc 02:58 AM
--- Phiên bản máy phục vụ: 10.4.21-MariaDB
--- Phiên bản PHP: 7.3.31
+-- Máy chủ: 127.0.0.1:3307
+-- Thời gian đã tạo: Th1 19, 2022 lúc 01:03 PM
+-- Phiên bản máy phục vụ: 10.4.22-MariaDB
+-- Phiên bản PHP: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,6 +49,7 @@ INSERT INTO `users` (`id`, `stagename`, `username`, `password`, `type`, `date_cr
 (14, 'IU', 'iu', '4297f44b13955235245b2497399d7a93', 3, '2022-01-18 22:46:56', 'avatar2.jpg', 'singer'),
 (27, 'Nghệ sĩ', 'nghesi', '202cb962ac59075b964b07152d234b70', 2, '2022-01-08 23:21:17', '375px-Son_Tung_M-TP_1_(2017).png', ''),
 (28, 'Đen Vâu', 'den', '202cb962ac59075b964b07152d234b70', 3, '2022-01-08 23:23:10', 'unnamed.jpg', 'rapper'),
+(29, 'Hoàng Dũng', 'hoangdung', '123', 3, '2022-01-19 12:09:29', 'hoang-dung.jpg', 'singer'),
 (32, 'Vũ', 'vu', '202cb962ac59075b964b07152d234b70', 2, '2022-01-14 15:15:01', 'channels4_profile.jpg', ''),
 (33, 'Phan Thế Hòa', 'hoa', '202cb962ac59075b964b07152d234b70', 2, '2022-01-14 22:55:22', '150453142_1747434955437056_2121695984279547353_n.jpg', ''),
 (34, 'Phạm Van Khải', 'khai', '202cb962ac59075b964b07152d234b70', 2, '2022-01-14 23:12:33', '120558211_2736361186632562_4970587914790807685_n.jpg', ''),
