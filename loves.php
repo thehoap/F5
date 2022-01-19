@@ -1,22 +1,24 @@
 <?php
-include 'showsongs.php';
-include 'db_connect.php';
+include 'config.php';
+$pdo = pdo_connect_mysql();
 
-if(isset($_SESSION['currUser'])){
-    //dong so 5 ko can thiet
-    $id=$_SESSION['currUser'];
-
-    $sql = "SELECT * FROM users WHERE id='$id' ";
-    $result = mysqli_query($conn, $sql);
-    if ($result->num_rows > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $name=$row['stagename'];
-        $path=$row['image'];
-        $_SESSION['name'] = $name;
-        $_SESSION['path'] = $path;
-    } else {
-        echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
+if (isset($_SESSION['currUser'])){
+    $user_id = $_SESSION['currUser'];
+    $stmt1 = $pdo->prepare('SELECT *,stagename FROM songs LEFT JOIN likes on songs.audio_id=likes.audio_id 
+                                                          LEFT JOIN users on songs.user_id=users.id WHERE likes.user_id = ?');
+    $stmt1->execute([ $user_id ]);
+    $list_songs = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+    if(count($list_songs)>0){
+        //Nghe si
+        $stmt2 = $pdo->prepare('SELECT *,stagename FROM songs LEFT JOIN likes on songs.audio_id=likes.audio_id 
+                                                          LEFT JOIN users on songs.user_id=users.id WHERE likes.user_id = ? GROUP BY songs.user_id');
+        $stmt2->execute([ $user_id ]);
+        $artists = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     }
+}
+else{
+    header("Location: login.php");
+    exit();
 }
 ?>
 
@@ -55,7 +57,7 @@ if(isset($_SESSION['currUser'])){
         <link rel="stylesheet" href="./css/app.css" />
         <link rel="stylesheet" href="./css/search.css" />
     </head>
-    <body onload="getMainContent('home')">
+    <body>
         <div class="grid">
             <!-- Sidebar -->
             <div class="sidebar">
@@ -89,7 +91,7 @@ if(isset($_SESSION['currUser'])){
                 </nav>
             </div>
             <header class="header">
-                <form action="search.php" method="post" class="search-engine">
+                <div class="search-engine">
                     <ion-icon name="search"></ion-icon>
                     <input
                         type="text" name="search1" id="search"
@@ -97,14 +99,13 @@ if(isset($_SESSION['currUser'])){
                         placeholder="Tên nghệ sĩ hoặc bài hát" autocomplete="off" required
                     />
                     <ul class="search-hints"></ul>
-                </form>
+                </div>
                 <!-- Cho t them vao-->
                 <div class="listGroup">
                     <ul style ="  list-style-type: none;padding: 0;margin: 0;" id="show-list">
                       <!-- Here autocomplete list will be display -->
                     </ul>
                 </div>
-                <?php if(isset($_SESSION['currUser'])){?>
                 <div class="user">
                     <img
                         src="<?='./assets/avatar/'.$_SESSION['path']?>"
@@ -127,45 +128,27 @@ if(isset($_SESSION['currUser'])){
                         </li>
                     </ul>
                 </div>
-                <?php }else{?>
-                <div class="user">
-                    <img
-                        src="./assets/img/iconTrang.jpg"
-                        alt="Avatar"
-                        class="user-avatar"
-                    />
-                    <span class="user-name">Chưa có tài khoản</span>
-                    <ion-icon name="chevron-down-outline"></ion-icon>
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="login.php" class="nav-link">
-                                <ion-icon name="log-out-outline"></ion-icon>Đăng
-                                nhập
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php }?>
             </header>
             <main class="main">
                 <!-- Trending Songs -->
+                <?php if(count($list_songs)>0){?>
                 <section class="cards">
                     <div class="cards-top">
-                        <h3 class="cards-title">Bài hát thịnh hành</h3>
+                        <h3 class="cards-title">Bài hát đã thích</h3>
                         <a href="" class="cards-more">Xem tất cả</a>
                     </div>
                     <div class="cards-bottom">
-                    <?php foreach($songs as $song): ?>
-                        <a href="songpage.php?audio_id=<?=$song['audio_id']?>" class="card">
+                    <?php foreach($list_songs as $list_song): ?>
+                        <a href="songpage.php?audio_id=<?=$list_song['audio_id']?>" class="card">
                             <img
-                                src="<?=($_SESSION["links_pictures"].$song['thumbnail'])?>"
+                                src="<?=($_SESSION["links_pictures"].$list_song['thumbnail'])?>"
                                 
                                 alt=""
                                 class="card-img"
                             />
                             <div class="card-content">
-                                <h4 class="card-title"><?=$song['title']?> </h4>
-                                <span class="card-desc"><?=$song['stagename']?></span>
+                                <h4 class="card-title"><?=$list_song['title']?></h4>
+                                <span class="card-desc"><?=$list_song['stagename']?></span>
                             </div>
                         </a>
                     <?php endforeach; ?>
@@ -175,11 +158,11 @@ if(isset($_SESSION['currUser'])){
                 <!-- Popular Artists -->
                 <section class="cards">
                     <div class="cards-top">
-                        <h3 class="cards-title">Nghệ sĩ phổ biến</h3>
+                        <h3 class="cards-title">Nghệ sĩ đóng góp</h3>
                         <a href="" class="cards-more">Xem tất cả</a>
                     </div>
                     <div class="cards-bottom">
-                    <?php foreach($artists as $artist): ?>
+                    <?php foreach($artists as $artist): ?>   
                         <a href="" class="card">
                             <img
                                 src="<?=($_SESSION["avatar"].$artist['image'])?>"
@@ -194,6 +177,11 @@ if(isset($_SESSION['currUser'])){
                     <?php endforeach; ?>
                     </div>
                 </section>
+                <?php }else{?>
+                    <div class="cards-top">
+                        <h3 class="cards-title">Bạn chưa thích bài hát nào cả!</h3>  
+                    </div>
+                    <?php }?>
                 <footer style="height: 100px"></footer>
             </main>
             <!-- Music Player -->

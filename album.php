@@ -50,7 +50,7 @@ include 'showalbum.php';
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="loves.php" class="nav-link">
                                 <ion-icon name="disc"></ion-icon>Bài hát đã
                                 thích
                             </a>
@@ -86,6 +86,7 @@ include 'showalbum.php';
                       <!-- Here autocomplete list will be display -->
                     </ul>
                 </div>
+                <?php if(isset($_SESSION['currUser'])){?>
                 <div class="user">
                     <img
                         src="<?='./assets/avatar/'.$_SESSION['path']?>"
@@ -108,6 +109,25 @@ include 'showalbum.php';
                         </li>
                     </ul>
                 </div>
+                <?php }else{?>
+                <div class="user">
+                    <img
+                        src="./assets/img/iconTrang.jpg"
+                        alt="Avatar"
+                        class="user-avatar"
+                    />
+                    <span class="user-name">Chưa có tài khoản</span>
+                    <ion-icon name="chevron-down-outline"></ion-icon>
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="login.php" class="nav-link">
+                                <ion-icon name="log-out-outline"></ion-icon>Đăng
+                                nhập
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <?php }?>
             </header>
             <main class="main">
                 <!-- Trending Songs -->
