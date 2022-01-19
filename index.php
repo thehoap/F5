@@ -1,5 +1,23 @@
 <?php
 include 'showsongs.php';
+include 'db_connect.php';
+
+if(isset($_SESSION['currUser'])){
+    //dong so 5 ko can thiet
+    $id=$_SESSION['currUser'];
+
+    $sql = "SELECT * FROM users WHERE id='$id' ";
+    $result = mysqli_query($conn, $sql);
+    if ($result->num_rows > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $name=$row['stagename'];
+        $path=$row['image'];
+        $_SESSION['name'] = $name;
+        $_SESSION['path'] = $path;
+    } else {
+        echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -88,20 +106,20 @@ include 'showsongs.php';
                 </div>
                 <div class="user">
                     <img
-                        src="./assets/img/ian-dooley-d1UPkiFd04A-unsplash.jpg"
+                        src="<?='./assets/avatar/'.$_SESSION['path']?>"
                         alt="Avatar"
                         class="user-avatar"
                     />
-                    <span class="user-name">Nguyễn Hoàng Minh</span>
+                    <span class="user-name"><?=$_SESSION['name'] ?></span>
                     <ion-icon name="chevron-down-outline"></ion-icon>
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="view_user.php" class="nav-link">
                                 <ion-icon name="person"></ion-icon>Trang cá nhân
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="logout.php" class="nav-link">
                                 <ion-icon name="log-out-outline"></ion-icon>Đăng
                                 xuất
                             </a>
@@ -127,7 +145,7 @@ include 'showsongs.php';
                             />
                             <div class="card-content">
                                 <h4 class="card-title"><?=$song['title']?> </h4>
-                                <span class="card-desc"><?=$song['username']?></span>
+                                <span class="card-desc"><?=$song['stagename']?></span>
                             </div>
                         </a>
                     <?php endforeach; ?>
@@ -144,12 +162,12 @@ include 'showsongs.php';
                     <?php foreach($artists as $artist): ?>
                         <a href="" class="card">
                             <img
-                                src="<?=($_SESSION["links_pictures"].$artist['avatar'])?>"
+                                src="<?=($_SESSION["avatar"].$artist['image'])?>"
                                 alt=""
                                 class="card-img"
                             />
                             <div class="card-content">
-                                <h4 class="card-title"><?=($artist['username'])?></h4>
+                                <h4 class="card-title"><?=($artist['stagename'])?></h4>
                                 <span class="card-desc"><?=($artist['occupation'])?></span>
                             </div>
                         </a>

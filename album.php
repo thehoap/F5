@@ -88,20 +88,20 @@ include 'showalbum.php';
                 </div>
                 <div class="user">
                     <img
-                        src="./assets/img/ian-dooley-d1UPkiFd04A-unsplash.jpg"
+                        src="<?='./assets/avatar/'.$_SESSION['path']?>"
                         alt="Avatar"
                         class="user-avatar"
                     />
-                    <span class="user-name">Nguyễn Hoàng Minh</span>
+                    <span class="user-name"><?=$_SESSION['name'] ?></span>
                     <ion-icon name="chevron-down-outline"></ion-icon>
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="view_user.php" class="nav-link">
                                 <ion-icon name="person"></ion-icon>Trang cá nhân
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="logout.php" class="nav-link">
                                 <ion-icon name="log-out-outline"></ion-icon>Đăng
                                 xuất
                             </a>

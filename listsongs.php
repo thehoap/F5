@@ -3,19 +3,19 @@ include 'config.php';
 $pdo = pdo_connect_mysql();
 
 if (isset($_GET['category'])){
-    $stmt1 = $pdo->prepare('SELECT *,username FROM songs LEFT JOIN login on songs.user_id=login.id WHERE category = ? ORDER BY view DESC LIMIT 5');
+    $stmt1 = $pdo->prepare('SELECT *,stagename FROM songs LEFT JOIN users on songs.user_id=users.id WHERE category = ? ORDER BY view DESC LIMIT 5');
     $stmt1->execute([ $_GET['category'] ]);
     $list_songs = $stmt1->fetchAll(PDO::FETCH_ASSOC);
     //Nghe si
-    $stmt2 = $pdo->prepare('SELECT *,username,avatar FROM songs LEFT JOIN login on songs.user_id=login.id WHERE category = ? GROUP BY songs.user_id ORDER BY view DESC LIMIT 5');
+    $stmt2 = $pdo->prepare('SELECT *,stagename,image FROM songs LEFT JOIN users on songs.user_id=users.id WHERE category = ? GROUP BY songs.user_id ORDER BY view DESC LIMIT 5');
     $stmt2->execute([ $_GET['category'] ]);
     $artists = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 }
 else{
-    $stmt1 = $pdo->query('SELECT *,username FROM songs LEFT JOIN login on songs.user_id=login.id ORDER BY view DESC LIMIT 5');
+    $stmt1 = $pdo->query('SELECT *,stagename FROM songs LEFT JOIN users on songs.user_id=users.id ORDER BY view DESC LIMIT 5');
     $list_songs = $stmt1->fetchAll(PDO::FETCH_ASSOC);
     //Nghe si
-    $stmt2 = $pdo->query('SELECT *,username,avatar FROM songs LEFT JOIN login on songs.user_id=login.id GROUP BY songs.user_id ORDER BY view DESC LIMIT 5');
+    $stmt2 = $pdo->query('SELECT *,stagename,image FROM songs LEFT JOIN users on songs.user_id=users.id GROUP BY songs.user_id ORDER BY view DESC LIMIT 5');
     $artists = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 } 
 ?>
@@ -106,20 +106,20 @@ else{
                 </div>
                 <div class="user">
                     <img
-                        src="./assets/img/ian-dooley-d1UPkiFd04A-unsplash.jpg"
+                        src="<?='./assets/avatar/'.$_SESSION['path']?>"
                         alt="Avatar"
                         class="user-avatar"
                     />
-                    <span class="user-name">Nguyễn Hoàng Minh</span>
+                    <span class="user-name"><?=$_SESSION['name'] ?></span>
                     <ion-icon name="chevron-down-outline"></ion-icon>
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="view_user.php" class="nav-link">
                                 <ion-icon name="person"></ion-icon>Trang cá nhân
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="logout.php" class="nav-link">
                                 <ion-icon name="log-out-outline"></ion-icon>Đăng
                                 xuất
                             </a>
@@ -145,7 +145,7 @@ else{
                             />
                             <div class="card-content">
                                 <h4 class="card-title"><?=$list_song['title']?></h4>
-                                <span class="card-desc"><?=$list_song['username']?></span>
+                                <span class="card-desc"><?=$list_song['stagename']?></span>
                             </div>
                         </a>
                     <?php endforeach; ?>
@@ -163,12 +163,12 @@ else{
                         <?php if(check_artist($artists[$i]['user_id'],$list_songs)== 1){?>
                         <a href="" class="card">
                             <img
-                                src="<?=($_SESSION["links_pictures"].$artists[$i]['avatar'])?>"
+                                src="<?=($_SESSION["avatar"].$artists[$i]['image'])?>"
                                 alt=""
                                 class="card-img"
                             />
                             <div class="card-content">
-                                <h4 class="card-title"><?=($artists[$i]['username'])?></h4>
+                                <h4 class="card-title"><?=($artists[$i]['stagename'])?></h4>
                                 <span class="card-desc"><?=($artists[$i]['occupation'])?></span>
                             </div>
                         </a>

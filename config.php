@@ -2,6 +2,7 @@
 session_start();
 $_SESSION["links_pictures"] = "./assets/img/songs/";
 $_SESSION["links_songs"] ="./assets/music/songs/";
+$_SESSION["avatar"] ="./assets/avatar/";
 function pdo_connect_mysql() {
     // Update the details below with your MySQL details.
     $DATABASE_HOST = 'localhost';

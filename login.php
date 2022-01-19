@@ -1,4 +1,4 @@
- <?php 
+<?php 
 
 include 'db_connect.php';
 
@@ -14,7 +14,8 @@ if (isset($_POST['submit'])) {
 	$result = mysqli_query($conn, $sql);
 	if ($result->num_rows > 0) {
 		$row = mysqli_fetch_assoc($result);
-		$_SESSION['currUser'] = $row['username'];
+		$_SESSION['currUser']  = $row['id'];
+        
 
 		if($row['type'] == 1){
 			$_SESSION['currAdmin'] = $row['type'];
@@ -28,6 +29,7 @@ if (isset($_POST['submit'])) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -77,8 +79,7 @@ if (isset($_POST['submit'])) {
             <a href="" class="desc">Quên mật khẩu?</a>
             <hr />
             <div class="form-group">
-                <button class="primary-btn"><a href="register.php">Đăng ký</a>
-            </button>
+                <button class="primary-btn"><a href="register.php">Đăng ký</a></button>		
             </div>
         </form>
     </body>

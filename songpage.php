@@ -4,7 +4,7 @@ include 'config.php';
 $pdo = pdo_connect_mysql();
 
 if (isset($_GET['audio_id'])){
-    $stmt = $pdo->prepare('SELECT *,username,avatar FROM songs LEFT JOIN login on songs.user_id=login.id WHERE audio_id = ?');
+    $stmt = $pdo->prepare('SELECT *,stagename,image FROM songs LEFT JOIN users on songs.user_id=users.id WHERE audio_id = ?');
     $stmt->execute([ $_GET['audio_id'] ]);
     $song1 = $stmt->fetch(PDO::FETCH_ASSOC);
     //echo $song1['audio_id'];
@@ -52,7 +52,7 @@ if (isset($_GET['audio_id'])){
                 <div class="cover-content">
                     <div>
                         <h3 class="cover-title"><?=$song1['title']?></h3>
-                        <span class="cover-desc"><?=$song1['username']?></span>
+                        <span class="cover-desc"><?=$song1['stagename']?></span>
                     </div>
                     <div class="timer">
                         <div class="current">1:02</div>
@@ -69,12 +69,12 @@ if (isset($_GET['audio_id'])){
             <section class="interaction">
                 <a href="./index copy.html" class="card">
                     <img
-                        src="<?=($_SESSION["links_pictures"].$song1['avatar'])?>"
+                        src="<?=($_SESSION["avatar"].$song1['image'])?>"
                         alt=""
                         class="card-img"
                     />
                     <div class="card-content">
-                        <h4 class="card-title"><?=($song1['username'])?></h4>
+                        <h4 class="card-title"><?=($song1['stagename'])?></h4>
                         <span class="card-desc"><?=($song1['occupation'])?></span>
                     </div>
                 </a>
