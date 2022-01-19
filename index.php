@@ -55,7 +55,7 @@ if(isset($_SESSION['currUser'])){
         <link rel="stylesheet" href="./css/app.css" />
         <link rel="stylesheet" href="./css/search.css" />
     </head>
-    <body>
+    <body onload="getMainContent('home')">
         <div class="grid">
             <!-- Sidebar -->
             <div class="sidebar">
