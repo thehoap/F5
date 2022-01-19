@@ -97,13 +97,11 @@ if(isset($_SESSION['currUser'])){
                         placeholder="Tên nghệ sĩ hoặc bài hát" autocomplete="off" required
                     />
                     <ul class="search-hints"></ul>
+                    <div class="listGroup">
+                        <ul style ="  list-style-type: none;padding: 0;margin: 0;" id="show-list">
+                        </ul>
+                    </div>
                 </form>
-                <!-- Cho t them vao-->
-                <div class="listGroup">
-                    <ul style ="  list-style-type: none;padding: 0;margin: 0;" id="show-list">
-                      <!-- Here autocomplete list will be display -->
-                    </ul>
-                </div>
                 <?php if(isset($_SESSION['currUser'])){?>
                 <div class="user">
                     <img

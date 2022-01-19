@@ -1,27 +1,50 @@
-    .listGroup {
+.listGroup {
     position: absolute;
-    margin-top: 38px;
-    margin-left: 15px;
-    height: 250px;
+    top: calc(100% + var(--brigde));
+    left: 0;
+    right: 0;
+    min-height: 0;
+    max-height: 200px;
     overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 1rem;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    box-shadow: 0 0 4px var(--primary-color), 0px 0px 2px var(--secondary-color);
 }
 .list {
+    position: relative;
     display: block;
-    border: 1px solid #ddd;
-    margin-top: -1px; /* Prevent double borders */
-    background-color: #f6f6f6;
+    margin-bottom: -1px;
+    background-color: var(--secondary-color);
     padding: 12px;
-    width: 350px;
+    width: 380px;
 }
 .list:hover {
     opacity: 1;
-    background-color: #140909;
-    color: #f6f6f6;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
-.list2 {
+/* .list2 {
     border: 1px solid #ddd;
-    margin-top: -1px; /* Prevent double borders */
+    margin-top: -1px; 
     background-color: #f6f6f6;
     padding: 12px;
     width: 350px;
+} */
+::-webkit-scrollbar {
+    width: 4px;
+}
+::-webkit-scrollbar-track {
+    visibility: hidden;
+    display: none;
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    position: absolute;
+    background: var(--half-secondary-color);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
