@@ -5,7 +5,7 @@ $stmt = $pdo->query('SELECT *,stagename FROM songs LEFT JOIN users on songs.user
 $songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //$stmt1 = $pdo->query('SELECT * FROM login LIMIT 5');
-$stmt1 = $pdo->query('SELECT * FROM users Where type = 3 LIMIT 5');
+$stmt1 = $pdo->query('SELECT * FROM users WHERE type = 3 LIMIT 5');
 $artists = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
 ?>

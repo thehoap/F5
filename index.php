@@ -68,7 +68,7 @@ if(isset($_SESSION['currUser'])){
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="loves.php" class="nav-link">
                                 <ion-icon name="disc"></ion-icon>Bài hát đã
                                 thích
                             </a>
@@ -89,7 +89,7 @@ if(isset($_SESSION['currUser'])){
                 </nav>
             </div>
             <header class="header">
-                <div class="search-engine">
+                <form action="search.php" method="post" class="search-engine">
                     <ion-icon name="search"></ion-icon>
                     <input
                         type="text" name="search1" id="search"
@@ -97,13 +97,14 @@ if(isset($_SESSION['currUser'])){
                         placeholder="Tên nghệ sĩ hoặc bài hát" autocomplete="off" required
                     />
                     <ul class="search-hints"></ul>
-                </div>
+                </form>
                 <!-- Cho t them vao-->
                 <div class="listGroup">
                     <ul style ="  list-style-type: none;padding: 0;margin: 0;" id="show-list">
                       <!-- Here autocomplete list will be display -->
                     </ul>
                 </div>
+                <?php if(isset($_SESSION['currUser'])){?>
                 <div class="user">
                     <img
                         src="<?='./assets/avatar/'.$_SESSION['path']?>"
@@ -126,6 +127,25 @@ if(isset($_SESSION['currUser'])){
                         </li>
                     </ul>
                 </div>
+                <?php }else{?>
+                <div class="user">
+                    <img
+                        src="./assets/img/iconTrang.jpg"
+                        alt="Avatar"
+                        class="user-avatar"
+                    />
+                    <span class="user-name">Chưa có tài khoản</span>
+                    <ion-icon name="chevron-down-outline"></ion-icon>
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="login.php" class="nav-link">
+                                <ion-icon name="log-out-outline"></ion-icon>Đăng
+                                nhập
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <?php }?>
             </header>
             <main class="main">
                 <!-- Trending Songs -->

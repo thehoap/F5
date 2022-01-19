@@ -1,5 +1,23 @@
 <?php
-include 'showalbum.php';
+include 'config.php';
+$pdo = pdo_connect_mysql();
+if (isset($_GET['name'])) {
+    $Name = $_GET['name'];
+
+    $sql = 'SELECT *,stagename FROM songs LEFT JOIN users on songs.user_id=users.id WHERE title LIKE :title';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['title' => '%' . $Name . '%']);
+    $list_songs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $sql1 = 'SELECT * FROM users WHERE stagename LIKE :stagename AND type = 3';
+    $stmt1 = $pdo->prepare($sql1);
+    $stmt1->execute(['stagename' => '%' . $Name . '%']);
+    $artists = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+    
+} else {
+    header('location: .');
+    exit();
+  }
 ?>
 
 <!DOCTYPE html>
@@ -74,7 +92,7 @@ include 'showalbum.php';
                 <div class="search-engine">
                     <ion-icon name="search"></ion-icon>
                     <input
-                        type="text" name="search1" id="search"
+                        type="text" name="search1" id="search" value = "<?=$Name?>"
                         class="search-input"
                         placeholder="Tên nghệ sĩ hoặc bài hát" autocomplete="off" required
                     />
@@ -131,51 +149,61 @@ include 'showalbum.php';
             </header>
             <main class="main">
                 <!-- Trending Songs -->
+                <?php if($list_songs OR $artists){ ?>
+                    <?php if($artists){ ?>
                 <section class="cards">
                     <div class="cards-top">
-                        <h3 class="cards-title">Dòng nhạc</h3>
+                        <h3 class="cards-title">Nghệ sĩ</h3>
                         <a href="" class="cards-more">Xem tất cả</a>
                     </div>
                     <div class="cards-bottom">
-                    <?php foreach($categorys as $category): ?>
-                        <a href="listsongs.php?category=<?=$category['category']?>" class="card">
+                    <?php foreach($artists as $artist): ?>
+                        <a href="" class="card">
                             <img
-                                src="<?=($_SESSION["links_pictures"].$category['thumbnail'])?>"
-                                
+                                src="<?=($_SESSION["avatar"].$artist['image'])?>"
                                 alt=""
                                 class="card-img"
                             />
                             <div class="card-content">
-                                <h4 class="card-title"><?=$_SESSION["num"].' '.$category['category']?> </h4>
-                                
+                                <h4 class="card-title"><?=($artist['stagename'])?></h4>
+                                <span class="card-desc"><?=($artist['occupation'])?></span>
                             </div>
                         </a>
                     <?php endforeach; ?>
                     </div>
                 </section>
-
+                    
+                    <?php }?>
+                    <?php if($list_songs){ ?>
                 <!-- Popular Artists -->
                 <section class="cards">
                     <div class="cards-top">
-                        <h3 class="cards-title">Phổ biến</h3>
+                        <h3 class="cards-title">Bài hát</h3>
                         <a href="" class="cards-more">Xem tất cả</a>
                     </div>
                     <div class="cards-bottom">
-                    <?php foreach($views as $view): ?>
-                        <a href="listsongs.php" class="card">
+                    <?php foreach($list_songs as $list_song): ?>
+                        <a href="songpage.php?audio_id=<?=$list_song['audio_id']?>" class="card">
                             <img
-                                src="<?=($_SESSION["links_pictures"].$view['thumbnail'])?>"
+                                src="<?=($_SESSION["links_pictures"].$list_song['thumbnail'])?>"
+                                
                                 alt=""
                                 class="card-img"
                             />
                             <div class="card-content">
-                                <h4 class="card-title"><?=$_SESSION["num"].' Yêu thích'?></h4>
-                                
+                                <h4 class="card-title"><?=$list_song['title']?> </h4>
+                                <span class="card-desc"><?=$list_song['stagename']?></span>
                             </div>
                         </a>
                     <?php endforeach; ?>
                     </div>
                 </section>
+                    <?php }?>
+                <?php }else{ ?>
+                    <div class="cards-top">
+                        <h3 class="cards-title">Không có kết quả tìm thấy</h3>
+                    </div>
+                <?php }?>
                 <footer style="height: 100px"></footer>
             </main>
             <!-- Music Player -->

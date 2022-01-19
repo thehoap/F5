@@ -1,5 +1,25 @@
 <?php
-include 'showalbum.php';
+include 'config.php';
+$pdo = pdo_connect_mysql();
+
+if (isset($_SESSION['currUser'])){
+    $user_id = $_SESSION['currUser'];
+    $stmt1 = $pdo->prepare('SELECT *,stagename FROM songs LEFT JOIN likes on songs.audio_id=likes.audio_id 
+                                                          LEFT JOIN users on songs.user_id=users.id WHERE likes.user_id = ?');
+    $stmt1->execute([ $user_id ]);
+    $list_songs = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+    if(count($list_songs)>0){
+        //Nghe si
+        $stmt2 = $pdo->prepare('SELECT *,stagename FROM songs LEFT JOIN likes on songs.audio_id=likes.audio_id 
+                                                          LEFT JOIN users on songs.user_id=users.id WHERE likes.user_id = ? GROUP BY songs.user_id');
+        $stmt2->execute([ $user_id ]);
+        $artists = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
+else{
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +106,6 @@ include 'showalbum.php';
                       <!-- Here autocomplete list will be display -->
                     </ul>
                 </div>
-                <?php if(isset($_SESSION['currUser'])){?>
                 <div class="user">
                     <img
                         src="<?='./assets/avatar/'.$_SESSION['path']?>"
@@ -109,45 +128,27 @@ include 'showalbum.php';
                         </li>
                     </ul>
                 </div>
-                <?php }else{?>
-                <div class="user">
-                    <img
-                        src="./assets/img/iconTrang.jpg"
-                        alt="Avatar"
-                        class="user-avatar"
-                    />
-                    <span class="user-name">Chưa có tài khoản</span>
-                    <ion-icon name="chevron-down-outline"></ion-icon>
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="login.php" class="nav-link">
-                                <ion-icon name="log-out-outline"></ion-icon>Đăng
-                                nhập
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php }?>
             </header>
             <main class="main">
                 <!-- Trending Songs -->
+                <?php if(count($list_songs)>0){?>
                 <section class="cards">
                     <div class="cards-top">
-                        <h3 class="cards-title">Dòng nhạc</h3>
+                        <h3 class="cards-title">Bài hát đã thích</h3>
                         <a href="" class="cards-more">Xem tất cả</a>
                     </div>
                     <div class="cards-bottom">
-                    <?php foreach($categorys as $category): ?>
-                        <a href="listsongs.php?category=<?=$category['category']?>" class="card">
+                    <?php foreach($list_songs as $list_song): ?>
+                        <a href="songpage.php?audio_id=<?=$list_song['audio_id']?>" class="card">
                             <img
-                                src="<?=($_SESSION["links_pictures"].$category['thumbnail'])?>"
+                                src="<?=($_SESSION["links_pictures"].$list_song['thumbnail'])?>"
                                 
                                 alt=""
                                 class="card-img"
                             />
                             <div class="card-content">
-                                <h4 class="card-title"><?=$_SESSION["num"].' '.$category['category']?> </h4>
-                                
+                                <h4 class="card-title"><?=$list_song['title']?></h4>
+                                <span class="card-desc"><?=$list_song['stagename']?></span>
                             </div>
                         </a>
                     <?php endforeach; ?>
@@ -157,25 +158,30 @@ include 'showalbum.php';
                 <!-- Popular Artists -->
                 <section class="cards">
                     <div class="cards-top">
-                        <h3 class="cards-title">Phổ biến</h3>
+                        <h3 class="cards-title">Nghệ sĩ đóng góp</h3>
                         <a href="" class="cards-more">Xem tất cả</a>
                     </div>
                     <div class="cards-bottom">
-                    <?php foreach($views as $view): ?>
-                        <a href="listsongs.php" class="card">
+                    <?php foreach($artists as $artist): ?>   
+                        <a href="" class="card">
                             <img
-                                src="<?=($_SESSION["links_pictures"].$view['thumbnail'])?>"
+                                src="<?=($_SESSION["avatar"].$artist['image'])?>"
                                 alt=""
                                 class="card-img"
                             />
                             <div class="card-content">
-                                <h4 class="card-title"><?=$_SESSION["num"].' Yêu thích'?></h4>
-                                
+                                <h4 class="card-title"><?=($artist['stagename'])?></h4>
+                                <span class="card-desc"><?=($artist['occupation'])?></span>
                             </div>
                         </a>
                     <?php endforeach; ?>
                     </div>
                 </section>
+                <?php }else{?>
+                    <div class="cards-top">
+                        <h3 class="cards-title">Bạn chưa thích bài hát nào cả!</h3>  
+                    </div>
+                    <?php }?>
                 <footer style="height: 100px"></footer>
             </main>
             <!-- Music Player -->
