@@ -1,22 +1,19 @@
 <?php
-include 'showsongs.php';
-include 'db_connect.php';
+//session_start();
+include 'config.php';
+$pdo = pdo_connect_mysql();
 
-if(isset($_SESSION['currUser'])){
-    //dong so 5 ko can thiet
-    $id=$_SESSION['currUser'];
-
-    $sql = "SELECT * FROM users WHERE id='$id' ";
-    $result = mysqli_query($conn, $sql);
-    if ($result->num_rows > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $name=$row['stagename'];
-        $path=$row['image'];
-        $_SESSION['name'] = $name;
-        $_SESSION['path'] = $path;
-    } else {
-        echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
-    }
+if (isset($_GET['id'])){
+    $stmt1 = $pdo->prepare('SELECT * FROM users WHERE id = ?');
+    $stmt1->execute([ $_GET['id'] ]);
+    $user = $stmt1->fetch(PDO::FETCH_ASSOC);
+    
+    $stmt2 = $pdo->prepare('SELECT *,stagename FROM songs LEFT JOIN users on songs.user_id=users.id WHERE songs.user_id = ?');
+    $stmt2->execute([ $_GET['id'] ]);
+    $songs = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+} 
+else{
+    exit();
 }
 ?>
 
@@ -146,10 +143,28 @@ if(isset($_SESSION['currUser'])){
                 <?php }?>
             </header>
             <main class="main">
-                <!-- Trending Songs -->
+                <!-- Persional Page -->
+                <section class="cards">                   
+                    <div class="cards-bottom">
+                    
+                        <div class="card card-song">
+                        <!-- <a class="card card-song"> -->
+                            <img
+                                src="<?=($_SESSION["avatar"] ="./assets/avatar/".$user['image'])?>"
+                                alt=""
+                                class="card-img"
+                            />
+                        </div>    
+                    </div>
+                    <h1><?= "Nghệ danh:".' '.$user['stagename']?></h1>
+                    </br>
+                    <h1><?= "Nghề nghiệp:".' '.$user['occupation']?></h1>
+                </section>
+
+                <!-- Popular Artists -->
                 <section class="cards">
                     <div class="cards-top">
-                        <h3 class="cards-title">Bài hát thịnh hành</h3>
+                        <h3 class="cards-title">Bài hát đã đăng</h3>
                         <a href="" class="cards-more">Xem tất cả</a>
                     </div>
                     <div class="cards-bottom">
@@ -172,29 +187,7 @@ if(isset($_SESSION['currUser'])){
                         </a>
                     <?php endforeach; ?>
                     </div>
-                </section>
-
-                <!-- Popular Artists -->
-                <section class="cards">
-                    <div class="cards-top">
-                        <h3 class="cards-title">Nghệ sĩ phổ biến</h3>
-                        <a href="" class="cards-more">Xem tất cả</a>
-                    </div>
-                    <div class="cards-bottom">
-                    <?php foreach($artists as $artist): ?>
-                        <a href="artistpage.php?id=<?=$artist['id']?>" class="card">
-                            <img
-                                src="<?=($_SESSION["avatar"].$artist['image'])?>"
-                                alt=""
-                                class="card-img"
-                            />
-                            <div class="card-content">
-                                <h4 class="card-title"><?=($artist['stagename'])?></h4>
-                                <span class="card-desc"><?=($artist['occupation'])?></span>
-                            </div>
-                        </a>
-                    <?php endforeach; ?>
-                    </div>
+                    
                 </section>
             </main>
             <!-- Music Player -->
