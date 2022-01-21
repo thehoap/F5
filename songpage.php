@@ -8,6 +8,16 @@ if (isset($_GET['audio_id'])){
     $stmt->execute([ $_GET['audio_id'] ]);
     $song1 = $stmt->fetch(PDO::FETCH_ASSOC);
     //echo $song1['audio_id'];
+    $query = "SELECT * FROM likes WHERE user_id = :user_id AND audio_id = :audio_id";
+    $statement = $pdo->prepare($query);
+    $statement->execute(
+        array(
+                'user_id' => $_SESSION['currUser'],
+                'audio_id' => $_GET['audio_id']
+            )
+            );
+    $count = $statement->rowCount();
+
 } 
 
 ?>
@@ -258,8 +268,12 @@ if (isset($_GET['audio_id'])){
                         <h4 class="song__title"><?=$song1['title']?></h4>
                         <p class="song__artist"><?=$song1['username']?></p>
                     </div>
-                    <div class="heart" onclick="favorite(this)">
+                    <div class="heart" title="<?=$_GET['audio_id']?>">
+                    <?php if($count>0){ ?>
+                        <ion-icon name="heart"></ion-icon>
+                    <?php }else{ ?>
                         <ion-icon name="heart-outline"></ion-icon>
+                    <?php } ?>
                     </div>
                 </div>
                 <div class="player">
@@ -319,5 +333,7 @@ if (isset($_GET['audio_id'])){
         <script src="https://unpkg.com/wavesurfer.js"></script>
         <script src="javascript/waveform.js"></script>
         <script src="javascript/app.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="like.js"></script>
     </body>
 </html>
