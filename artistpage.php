@@ -163,6 +163,7 @@ else{
 
                 <!-- Popular Artists -->
                 <section class="cards">
+                <?php if ($songs){ ?>
                     <div class="cards-top">
                         <h3 class="cards-title">Bài hát đã đăng</h3>
                         <a href="" class="cards-more">Xem tất cả</a>
@@ -187,7 +188,7 @@ else{
                         </a>
                     <?php endforeach; ?>
                     </div>
-                    
+                <?php } ?>
                 </section>
             </main>
             <!-- Music Player -->
