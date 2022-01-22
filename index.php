@@ -68,7 +68,7 @@ if(isset($_SESSION['currUser'])){
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="loves.php" class="nav-link">
+                            <a href="listloves.php" class="nav-link">
                                 <ion-icon name="disc"></ion-icon>Bài hát đã
                                 thích
                             </a>

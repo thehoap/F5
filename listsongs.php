@@ -68,7 +68,7 @@ else{
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="loves.php" class="nav-link">
+                            <a href="listloves.php" class="nav-link">
                                 <ion-icon name="disc"></ion-icon>Bài hát đã
                                 thích
                             </a>
@@ -181,7 +181,7 @@ else{
                     <div class="cards-bottom">
                     <?php for ($i = 0; $i < count($artists); $i++): ?>
                         <?php if(check_artist($artists[$i]['user_id'],$list_songs)== 1){?>
-                        <a href="" class="card">
+                        <a href="artistpage.php?id=<?=$artists[$i]['id']?>"  class="card">
                             <img
                                 src="<?=($_SESSION["avatar"].$artists[$i]['image'])?>"
                                 alt=""
