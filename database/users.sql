@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1:3307
--- Thời gian đã tạo: Th1 19, 2022 lúc 01:03 PM
--- Phiên bản máy phục vụ: 10.4.22-MariaDB
--- Phiên bản PHP: 8.1.1
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th1 22, 2022 lúc 04:36 AM
+-- Phiên bản máy phục vụ: 10.4.21-MariaDB
+-- Phiên bản PHP: 7.3.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `users` (
   `id` int(30) NOT NULL,
-  `stagename` varchar(255) NOT NULL,
+  `stagename` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` text NOT NULL,
   `type` int(1) NOT NULL DEFAULT 2,
@@ -44,12 +44,14 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `stagename`, `username`, `password`, `type`, `date_created`, `image`, `occupation`) VALUES
 (1, 'Adminstrator', 'admin', '0192023a7bbd73250516f069df18b500', 1, '2020-11-18 16:50:06', '102180073.jpg', ''),
-(12, 'Bigbang', 'bigbang', '4297f44b13955235245b2497399d7a93', 3, '2022-01-18 22:45:37', 'avatar.jpg', 'group music'),
-(13, 'Bol4', 'bol4', '4297f44b13955235245b2497399d7a93', 3, '2022-01-18 22:46:33', 'avatar1.jpg', 'singer'),
-(14, 'IU', 'iu', '4297f44b13955235245b2497399d7a93', 3, '2022-01-18 22:46:56', 'avatar2.jpg', 'singer'),
+(6, 'Mr.Siro', 'siro', '4297f44b13955235245b2497399d7a93', 3, '2022-01-22 10:25:43', 'avatar5.jpg', 'Nghệ sĩ'),
+(12, 'Bigbang', 'bigbang', '4297f44b13955235245b2497399d7a93', 3, '2022-01-18 22:45:37', 'avatar.jpg', 'Nhóm nhạc'),
+(13, 'Bol4', 'bol4', '4297f44b13955235245b2497399d7a93', 3, '2022-01-18 22:46:33', 'avatar1.jpg', 'Ca sĩ'),
+(14, 'IU', 'iu', '4297f44b13955235245b2497399d7a93', 3, '2022-01-18 22:46:56', 'avatar2.jpg', 'Ca sĩ'),
+(15, 'LyLy', 'lyly', '4297f44b13955235245b2497399d7a93', 3, '2022-01-22 09:40:39', 'avatar4.jpg', 'Ca sĩ'),
+(16, 'Karik', 'karik', '4297f44b13955235245b2497399d7a93', 3, '2022-01-22 10:01:14', 'avatar3.jpg', 'rapper'),
 (27, 'Nghệ sĩ', 'nghesi', '202cb962ac59075b964b07152d234b70', 2, '2022-01-08 23:21:17', '375px-Son_Tung_M-TP_1_(2017).png', ''),
 (28, 'Đen Vâu', 'den', '202cb962ac59075b964b07152d234b70', 3, '2022-01-08 23:23:10', 'unnamed.jpg', 'rapper'),
-(29, 'Hoàng Dũng', 'hoangdung', '123', 3, '2022-01-19 12:09:29', 'hoang-dung.jpg', 'singer'),
 (32, 'Vũ', 'vu', '202cb962ac59075b964b07152d234b70', 2, '2022-01-14 15:15:01', 'channels4_profile.jpg', ''),
 (33, 'Phan Thế Hòa', 'hoa', '202cb962ac59075b964b07152d234b70', 2, '2022-01-14 22:55:22', '150453142_1747434955437056_2121695984279547353_n.jpg', ''),
 (34, 'Phạm Van Khải', 'khai', '202cb962ac59075b964b07152d234b70', 2, '2022-01-14 23:12:33', '120558211_2736361186632562_4970587914790807685_n.jpg', ''),
@@ -75,7 +77,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

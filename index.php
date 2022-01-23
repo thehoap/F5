@@ -68,7 +68,7 @@ if(isset($_SESSION['currUser'])){
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="loves.php" class="nav-link">
+                            <a href="listloves.php" class="nav-link">
                                 <ion-icon name="disc"></ion-icon>Bài hát đã
                                 thích
                             </a>
@@ -185,7 +185,7 @@ if(isset($_SESSION['currUser'])){
                     </div>
                     <div class="cards-bottom">
                     <?php foreach($artists as $artist): ?>
-                        <a href="" class="card">
+                        <a href="artistpage.php?id=<?=$artist['id']?>" class="card">
                             <img
                                 src="<?=($_SESSION["avatar"].$artist['image'])?>"
                                 alt=""
