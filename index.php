@@ -98,7 +98,7 @@ if(isset($_SESSION['currUser'])){
                     />
                     <ul class="search-hints"></ul>
                     <div class="listGroup">
-                        <ul style ="  list-style-type: none;padding: 0;margin: 0;" id="show-list">
+                        <ul style ="list-style-type: none;padding: 0;margin: 0;" id="show-list">
                         </ul>
                     </div>
                 </form>
@@ -166,9 +166,12 @@ if(isset($_SESSION['currUser'])){
                                 <h4 class="card-title"><?=$song['title']?> </h4>
                                 <span class="card-desc"><?=$song['stagename']?></span>
                             </div>
-                            <button class="play-song-btn">
+                            <button class="play-song-btn" onclick="return false;">
                                 <ion-icon class="play-icon" name="play"></ion-icon> 
                             </button>
+                            <!-- <script>
+                                var audio_location = "<?php echo $_SESSION['links_songs'].$song['audio_location']; ?>";
+                            </script> -->
                         </a>
                     <?php endforeach; ?>
                     </div>

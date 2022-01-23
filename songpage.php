@@ -248,6 +248,7 @@ if (isset($_GET['audio_id'])){
                 </section>
             </main>
             <div class="music-player">
+                <button class="play-song-btn" style="display: none;"></button>
                 <div class="song">
                     <img
                         src="<?=($_SESSION["links_pictures"].$song1['thumbnail'])?>"

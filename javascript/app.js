@@ -9,7 +9,7 @@ const track = document.getElementById("track");
 const volumeIcon = document.querySelector(".volume-icon");
 const volumeBar = document.getElementById("volume");
 const musicPlayer = document.querySelector(".music-player");
-// const playSongBtn = document.querySelector(".play-song-btn");
+// const playSongBtn = document.querySelectorAll(".play-song-btn");
 let isPlaying = true;
 let indexSong = 0;
 const musics = [
@@ -65,19 +65,30 @@ let waveform = WaveSurfer.create({
 waveform.setVolume(0);
 // waveform.load(`./assets/music/${musics[indexSong]}`);
 waveform.load(song.getAttribute("src"));
-// playSongBtn.addEventListener("click", playPauseTrack);
+// for (let i = 0; i < playSongBtn.length; i++) {
+//     playSongBtn[i].addEventListener("click", function() {
+//         song.setAttribute("src", audio_location);
+//     });
+//     playSongBtn[i].addEventListener("click", playPauseTrack);
+// }
 playBtn.addEventListener("click", playPauseTrack);
 function playPauseTrack() {
     waveform.playPause();
     if (isPlaying) {
         song.play();
-        // playSongBtn.innerHTML = `<ion-icon name="pause"></ion-icon>`;
+        // for (let i = 0; i < playSongBtn.length; i++) {
+        //     playSongBtn[i].innerHTML = `<ion-icon name="pause"></ion-icon>`;
+        //     // break;
+        // }
         playBtn.innerHTML = `<ion-icon name="pause"></ion-icon>`;
         isPlaying = false;
         timer = setInterval(displayTimer, 500);
     } else {
         song.pause();
-        // playSongBtn.innerHTML = `<ion-icon name="play"></ion-icon>`;
+        // for (let i = 0; i < playSongBtn.length; i++) {
+        //     playSongBtn[i].innerHTML = `<ion-icon name="play"></ion-icon>`;
+        //     // break;
+        // }
         playBtn.innerHTML = `<ion-icon name="play"></ion-icon>`;
         isPlaying = true;
         clearInterval(timer);
