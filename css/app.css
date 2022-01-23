@@ -268,21 +268,20 @@
     display: flex;
     flex-wrap: wrap;
     margin-left: calc(-1 * var(--gap));
-    /* justify-content: space-between; */
-    /* gap: 2.4rem; */
 }
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 767px) {
     .cards-bottom {
         --cols: 3;
         --gap: 2rem;
     }
-}
+} */
 .card {
     position: relative;
     display: block;
     margin-left: var(--gap);
     margin-bottom: var(--gap);
     min-width: calc((100% / var(--cols)) - var(--gap));
+    /* width: 100%; */
     height: 278px;
     background-color: var(--primary-color);
     padding: 2rem;
@@ -300,9 +299,15 @@
     border-radius: 4px;
 }
 .card-title {
+    line-height: 1.4;
     color: var(--secondary-color);
     font-size: 1.6rem;
     margin-bottom: 4px;
+    overflow: hidden;
+    width: 180px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 .card-desc {
     color: var(--secondary-color);
@@ -388,7 +393,7 @@
     justify-content: space-between;
     gap: 8rem;
 }
-.interaction .card{
+.interaction .card {
     width: 260px;
     height: 278px;
 }
@@ -440,4 +445,36 @@
 .comment__name.user-name {
 }
 .comment__content.desc {
+}
+/* ARTIST PROFILE */
+.profile {
+    position: relative;
+    margin-bottom: 2rem;
+}
+.profile__img {
+    border-radius: 4px;
+    height: 340px;
+}
+.profile__info {
+    position: absolute;
+    bottom: 3.6rem;
+    left: 1.2rem;
+    /* display: flex; */
+    align-items: center;
+    color: var(--primary-color);
+    text-shadow: 0 0 4px var(--secondary-color),
+        0px 0px 2px var(--secondary-color);
+}
+.profile__name {
+    font-size: 5rem;
+    margin-right: 8px;
+    font-weight: bold;
+    letter-spacing: 6px;
+}
+.profile__auth {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 1.6rem;
+    margin-bottom: 3.2rem;
 }
