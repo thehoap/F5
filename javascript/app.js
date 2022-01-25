@@ -1,4 +1,7 @@
 const song = document.getElementById("song");
+let songThumb = document.querySelector(".song__thumb");
+let songTitle = document.querySelector(".song__title");
+let songArtist = document.querySelector(".song__artist");
 const heart = document.querySelector(".heart");
 const playBtn = document.querySelector(".play");
 const prevBtn = document.querySelector(".play-skip-back");
@@ -9,14 +12,14 @@ const track = document.getElementById("track");
 const volumeIcon = document.querySelector(".volume-icon");
 const volumeBar = document.getElementById("volume");
 const musicPlayer = document.querySelector(".music-player");
-// const playSongBtn = document.querySelectorAll(".play-song-btn");
+const playSongBtn = document.querySelectorAll(".play-song-btn");
+const cardSongAudio = document.querySelectorAll(".card-song__audio");
+const cardSongThumb = document.querySelectorAll(".card-song__card-img");
+const cardSongTitle = document.querySelectorAll(".card-song__card-title");
+const cardSongArtist = document.querySelectorAll(".card-song__card-desc");
+
 let isPlaying = true;
-let indexSong = 0;
-const musics = [
-    "tron-tim-den-vau.mp3",
-    "nang-tho-hoang-dung.mp3",
-    "vung-ki-uc-chillies.mp3",
-];
+let indexSong;
 function favorite(heart) {
     if (heart.innerHTML.includes('name="heart-outline"')) {
         heart.querySelector("ion-icon").setAttribute("name", "heart");
@@ -26,7 +29,6 @@ function favorite(heart) {
 }
 displayTimer();
 let timer;
-// song.setAttribute("src", `./assets/music/${musics[indexSong]}`);
 prevBtn.addEventListener("click", function () {
     changeSong(-1);
 });
@@ -38,20 +40,26 @@ function handleEndedSong() {
     changeSong(1);
 }
 function changeSong(direction) {
+    playSongBtn[
+        indexSong
+    ].innerHTML = `<ion-icon class="play-icon" name="play" onclick="return false;"></ion-icon> `;
     if (direction === 1) {
         indexSong++;
-        if (indexSong == musics.length) {
+        if (indexSong == cardSongAudio.length) {
             indexSong = 0;
         }
         isPlaying = true;
     } else if (direction === -1) {
         indexSong--;
         if (indexSong < 0) {
-            indexSong = musics.length - 1;
+            indexSong = cardSongAudio.length - 1;
         }
         isPlaying = true;
     }
-    song.setAttribute("src", `./assets/music/${musics[indexSong]}`);
+    song.setAttribute("src", cardSongAudio[indexSong].getAttribute("src"));
+    songThumb.setAttribute("src", cardSongThumb[indexSong].getAttribute("src"));
+    songTitle.innerHTML = cardSongTitle[indexSong].innerHTML;
+    songArtist.innerHTML = cardSongArtist[indexSong].innerHTML;
     playPauseTrack();
 }
 // Waveform
@@ -62,34 +70,52 @@ let waveform = WaveSurfer.create({
     barWidth: 3,
     cursorColor: "transparent",
 });
+waveform.on("seek", function () {
+    track.value = waveform.getCurrentTime();
+    song.currentTime = waveform.getCurrentTime();
+});
 waveform.setVolume(0);
-// waveform.load(`./assets/music/${musics[indexSong]}`);
 waveform.load(song.getAttribute("src"));
-// for (let i = 0; i < playSongBtn.length; i++) {
-//     playSongBtn[i].addEventListener("click", function() {
-//         song.setAttribute("src", audio_location);
-//     });
-//     playSongBtn[i].addEventListener("click", playPauseTrack);
-// }
+for (let i = 0; i < playSongBtn.length; i++) {
+    playSongBtn[i].addEventListener("click", function () {
+        for (let i = 0; i < playSongBtn.length; i++) {
+            playSongBtn[
+                i
+            ].innerHTML = `<ion-icon class="play-icon" name="play" onclick="return false;"></ion-icon> `;
+        }
+        waveform.playPause();
+        if (i != indexSong) {
+            indexSong = i;
+            song.setAttribute(
+                "src",
+                cardSongAudio[indexSong].getAttribute("src")
+            );
+            songThumb.setAttribute(
+                "src",
+                cardSongThumb[indexSong].getAttribute("src")
+            );
+            songTitle.innerHTML = cardSongTitle[indexSong].innerHTML;
+            songArtist.innerHTML = cardSongArtist[indexSong].innerHTML;
+        } else {
+            playPauseTrack();
+        }
+    });
+    playSongBtn[i].addEventListener("click", playPauseTrack);
+}
 playBtn.addEventListener("click", playPauseTrack);
 function playPauseTrack() {
-    waveform.playPause();
     if (isPlaying) {
         song.play();
-        // for (let i = 0; i < playSongBtn.length; i++) {
-        //     playSongBtn[i].innerHTML = `<ion-icon name="pause"></ion-icon>`;
-        //     // break;
-        // }
+        waveform.playPause();
         playBtn.innerHTML = `<ion-icon name="pause"></ion-icon>`;
+        playSongBtn[indexSong].innerHTML = playBtn.innerHTML;
         isPlaying = false;
         timer = setInterval(displayTimer, 500);
     } else {
         song.pause();
-        // for (let i = 0; i < playSongBtn.length; i++) {
-        //     playSongBtn[i].innerHTML = `<ion-icon name="play"></ion-icon>`;
-        //     // break;
-        // }
+        waveform.pause();
         playBtn.innerHTML = `<ion-icon name="play"></ion-icon>`;
+        playSongBtn[indexSong].innerHTML = playBtn.innerHTML;
         isPlaying = true;
         clearInterval(timer);
     }
@@ -145,9 +171,9 @@ const showRangeProgress = (rangeInput) => {
     let x = (rangeInput.value / rangeInput.max) * 100;
     rangeInput.style.background = `linear-gradient(90deg, var(--secondary-color) ${x}%, var(--half-secondary-color) ${x}%)`;
 };
-track.addEventListener("input", (e) => {
-    showRangeProgress(e.target);
-});
+// track.addEventListener("input", (e) => {
+//     showRangeProgress(e.target);
+// });
 volumeBar.addEventListener("input", (e) => {
     showRangeProgress(e.target);
 });

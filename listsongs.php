@@ -58,95 +58,9 @@ else{
     <body>
         <div class="grid">
             <!-- Sidebar -->
-            <div class="sidebar">
-                <img src="./assets/Logo F5.svg" alt="" class="logo" />
-                <nav class="nav">
-                    <ul class="nav-top">
-                        <li class="nav-item">
-                            <a href="index.php" class="nav-link selected">
-                                <ion-icon name="home"></ion-icon>Trang chủ
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="listloves.php" class="nav-link">
-                                <ion-icon name="disc"></ion-icon>Bài hát đã
-                                thích
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="album.php" class="nav-link">
-                                <ion-icon name="disc"></ion-icon>Album
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav-bottom">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <ion-icon name="settings"></ion-icon>Cài đặt
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <header class="header">
-                <div class="search-engine">
-                    <ion-icon name="search"></ion-icon>
-                    <input
-                        type="text" name="search1" id="search"
-                        class="search-input"
-                        placeholder="Tên nghệ sĩ hoặc bài hát" autocomplete="off" required
-                    />
-                    <ul class="search-hints"></ul>
-                </div>
-                <!-- Cho t them vao-->
-                <div class="listGroup">
-                    <ul style ="  list-style-type: none;padding: 0;margin: 0;" id="show-list">
-                      <!-- Here autocomplete list will be display -->
-                    </ul>
-                </div>
-                <?php if(isset($_SESSION['currUser'])){?>
-                <div class="user">
-                    <img
-                        src="<?='./assets/avatar/'.$_SESSION['path']?>"
-                        alt="Avatar"
-                        class="user-avatar"
-                    />
-                    <span class="user-name"><?=$_SESSION['name'] ?></span>
-                    <ion-icon name="chevron-down-outline"></ion-icon>
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="view_user.php" class="nav-link">
-                                <ion-icon name="person"></ion-icon>Trang cá nhân
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="logout.php" class="nav-link">
-                                <ion-icon name="log-out-outline"></ion-icon>Đăng
-                                xuất
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php }else{?>
-                <div class="user">
-                    <img
-                        src="./assets/img/iconTrang.jpg"
-                        alt="Avatar"
-                        class="user-avatar"
-                    />
-                    <span class="user-name">Chưa có tài khoản</span>
-                    <ion-icon name="chevron-down-outline"></ion-icon>
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="login.php" class="nav-link">
-                                <ion-icon name="log-out-outline"></ion-icon>Đăng
-                                nhập
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php }?>
-            </header>
+            <?php include "templates/sidebar.html";?>
+            <!-- Header -->
+            <?php include "templates/header.php";?>
             <main class="main">
                 <!-- Trending Songs -->
                 <section class="cards">
@@ -199,7 +113,7 @@ else{
             </main>
             <!-- Music Player -->
             <div class="music-player">
-            <div class="waveform" style="display: none"></div>
+                <div class="waveform" style="display: none"></div>
                 <div class="song">
                     <img
                         src="./assets/img/tron tim.jpg"
@@ -272,9 +186,6 @@ else{
                 </div>
             </div>
         </div>
-        <script src="https://unpkg.com/wavesurfer.js"></script>
-        <script src="javascript/app.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="search.js"></script>        
+        <?php include "templates/script.php";?>     
     </body>
 </html>
