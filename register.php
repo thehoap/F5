@@ -101,27 +101,27 @@ if (isset($_POST['submit'])){
             <img src="./assets/Logo F5.svg" alt="F5MP3" class="logo" />
             <p class="desc">Trang chia sẻ và tải nhạc trực tuyến</p>
             <div class="form-group">
-                <input type="text" class="form-input" placeholder="Nghệ danh" name="stagename" />
+                <input type="text" class="form-input" placeholder="Nghệ danh" name="stagename" required/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" />
+                <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" required/>
             </div>
             <div class="form-group">
-                <input type="password" class="form-input" placeholder="Mật khẩu" name="password" />
+                <input type="password" class="form-input" placeholder="Mật khẩu" name="password" required/>
             </div>
             <div class="form-group">
-                <input type="password" class="form-input" placeholder="Xác nhận mật khẩu" name="cpassword" />
+                <input type="password" class="form-input" placeholder="Xác nhận mật khẩu" name="cpassword" required/>
             </div>
             <div class="form-group">
-                <input type="radio" name="type" value="3">
+                <input type="radio" name="type" value="3" required>
                 <label for="type">Đăng ký nghệ sĩ</label>
             </div>
             <div class="form-group">
-                <input type="radio" name="type" value="2">
+                <input type="radio" name="type" value="2" required>
                 <label for="type">Đăng ký người nghe</label>
             </div>
              <div class="form-group" >
-             <input type="file" name="image" id = "image"> 
+             <input type="file" name="image" id = "image" required> 
             </div>
             <div class="form-group">
                 <button name="submit" class="primary-btn">Đăng ký</button>
