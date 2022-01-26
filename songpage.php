@@ -1,4 +1,7 @@
 <?php
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+include 'db_comment_connect.php';
+include 'comment.inc.php';
 //session_start();
 include 'config.php';
 $pdo = pdo_connect_mysql();
@@ -8,6 +11,16 @@ if (isset($_GET['audio_id'])){
     $stmt->execute([ $_GET['audio_id'] ]);
     $song1 = $stmt->fetch(PDO::FETCH_ASSOC);
     //echo $song1['audio_id'];
+    $query = "SELECT * FROM likes WHERE user_id = :user_id AND audio_id = :audio_id";
+    $statement = $pdo->prepare($query);
+    $statement->execute(
+        array(
+                'user_id' => $_SESSION['currUser'],
+                'audio_id' => $_GET['audio_id']
+            )
+            );
+    $count = $statement->rowCount();
+
 } 
 
 ?>
@@ -48,99 +61,26 @@ if (isset($_GET['audio_id'])){
     </head>
     <body>
         <div class="grid">
-            <div class="sidebar">
-                <img src="./assets/Logo F5.svg" alt="" class="logo" />
-                <nav class="nav">
-                    <ul class="nav-top">
-                        <li class="nav-item">
-                            <a href="index.php" class="nav-link selected">
-                                <ion-icon name="home"></ion-icon>Trang chủ
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="loves.php" class="nav-link">
-                                <ion-icon name="disc"></ion-icon>Bài hát đã
-                                thích
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="album.php" class="nav-link">
-                                <ion-icon name="disc"></ion-icon>Album
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav-bottom">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <ion-icon name="settings"></ion-icon>Cài đặt
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-<header class="header">
-                <form action="search.php" method="post" class="search-engine">
-                    <ion-icon name="search"></ion-icon>
-                    <input
-                        type="text" name="search1" id="search"
-                        class="search-input"
-                        placeholder="Tên nghệ sĩ hoặc bài hát" autocomplete="off" required
-                    />
-                    <ul class="search-hints"></ul>
-                    <div class="listGroup">
-                        <ul style ="  list-style-type: none;padding: 0;margin: 0;" id="show-list">
-                        </ul>
-                    </div>
-                </form>
-                <?php if(isset($_SESSION['currUser'])){?>
-                <div class="user">
-                    <img
-                        src="<?='./assets/avatar/'.$_SESSION['path']?>"
-                        alt="Avatar"
-                        class="user-avatar"
-                    />
-                    <span class="user-name"><?=$_SESSION['name']?></span>
-                    <ion-icon name="chevron-down-outline"></ion-icon>
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="view_user.php" class="nav-link">
-                                <ion-icon name="person"></ion-icon>Trang cá nhân
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="logout.php" class="nav-link">
-                                <ion-icon name="log-out-outline"></ion-icon>Đăng
-                                xuất
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php }else{?>
-                <div class="user">
-                    <img
-                        src="./assets/img/iconTrang.jpg"
-                        alt="Avatar"
-                        class="user-avatar"
-                    />
-                    <span class="user-name">Chưa có tài khoản</span>
-                    <ion-icon name="chevron-down-outline"></ion-icon>
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="login.php" class="nav-link">
-                                <ion-icon name="log-out-outline"></ion-icon>Đăng
-                                nhập
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php }?>
-            </header>
+            <!-- Sidebar -->
+            <?php include "templates/sidebar.html";?>
+            <!-- Header -->
+            <?php include "templates/header.php";?>
             <main class="main">
                 <section class="cover">
                     <div class="cover-content">
-                        <div>
-                            <h3 class="cover-title"><?=$song1['title']?></h3>
-                            <span class="cover-desc"><?=$song1['stagename']?></span>
+                        <!-- <div class="cover-info">
+                            <button class="play-song-btn cover__play-song-btn" onclick="playPauseTrack(); return false;" >
+                                <ion-icon class="play-icon" name="play" onclick="return false;"></ion-icon> 
+                            </button>
+                        </div> -->
+                        <div class="cover-info">
+                            <button class="play-song-btn cover__play-song-btn" onclick="playPauseTrack(); return false;" >
+                                <ion-icon class="play-icon" name="play" onclick="return false;"></ion-icon> 
+                            </button>
+                            <div>
+                                <h3 class="cover-title"><?=$song1['title']?></h3>
+                                <span class="cover-desc"><?=$song1['stagename']?></span>
+                            </div>
                         </div>
                         <div class="timer">
                             <div class="current">1:02</div>
@@ -167,7 +107,30 @@ if (isset($_GET['audio_id'])){
                         </div>
                     </a>
                     <section class="comment-box">
-                        <form class="comment-top">
+                        <?php
+                            echo "<form method='POST' action='".setComments($conn)."' class='comment-top'>
+                                <img
+                                    src='./assets/img/ian-dooley-d1UPkiFd04A-unsplash.jpg'
+                                    alt='Avatar'
+                                    class='user-avatar'
+                                />
+                                <input type = 'hidden' name = 'uid' value='Anonymous'>
+                                <input type = 'hidden' name = 'date' value = '".date('Y-m-d H:i:s')."'>
+                                <textarea
+                                    required
+                                    name='message'
+                                    id='comment-input'
+                                    cols='30'
+                                    rows='3'
+                                    class='form-input'
+                                    placeholder='Bạn nghĩ gì về bài nhạc này? '
+                                ></textarea>
+                                <button type = 'submit' class='primary-btn comment-btn' name= 'submitComment'>Bình luận</button>
+                                </form>";
+                            getComment($conn);
+        
+                        ?>
+                        <!-- <form class="comment-top">
                             <div>
                                 <img
                                     src="./assets/img/ian-dooley-d1UPkiFd04A-unsplash.jpg"
@@ -183,12 +146,11 @@ if (isset($_GET['audio_id'])){
                                     placeholder="Bạn nghĩ gì về bài nhạc này? "
                                 ></textarea>
                             </div>
-                            <!-- <button type="reset" class="primary-btn comment-btn">Huy</button> -->
                             <button type="submit" class="primary-btn comment-btn">
                                 Bình luận
                             </button>
-                        </form>
-                        <ul class="comment-bottom">
+                        </form> -->
+                        <!-- <ul class="comment-bottom">
                             <li class="comment">
                                 <img
                                     src="./assets/img/andriyko-podilnyk-3p6RZXty-7c-unsplash.jpg"
@@ -243,7 +205,7 @@ if (isset($_GET['audio_id'])){
                                     </p>
                                 </div>
                             </li>
-                        </ul>
+                        </ul> -->
                     </section>
                 </section>
             </main>
@@ -258,8 +220,12 @@ if (isset($_GET['audio_id'])){
                         <h4 class="song__title"><?=$song1['title']?></h4>
                         <p class="song__artist"><?=$song1['username']?></p>
                     </div>
-                    <div class="heart" onclick="favorite(this)">
+                    <div class="heart" title="<?=$_GET['audio_id']?>">
+                    <?php if($count>0){ ?>
+                        <ion-icon name="heart"></ion-icon>
+                    <?php }else{ ?>
                         <ion-icon name="heart-outline"></ion-icon>
+                    <?php } ?>
                     </div>
                 </div>
                 <div class="player">
@@ -315,9 +281,6 @@ if (isset($_GET['audio_id'])){
                 </div>
             </div>
         </div>
-
-        <script src="https://unpkg.com/wavesurfer.js"></script>
-        <script src="javascript/waveform.js"></script>
-        <script src="javascript/app.js"></script>
+        <?php include "templates/script.php";?>
     </body>
 </html>

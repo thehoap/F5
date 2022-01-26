@@ -58,93 +58,9 @@ if(isset($_SESSION['currUser'])){
     <body>
         <div class="grid">
             <!-- Sidebar -->
-            <div class="sidebar">
-                <img src="./assets/Logo F5.svg" alt="" class="logo" />
-                <nav class="nav">
-                    <ul class="nav-top">
-                        <li class="nav-item">
-                            <a href="index.php" class="nav-link selected">
-                                <ion-icon name="home"></ion-icon>Trang chủ
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="loves.php" class="nav-link">
-                                <ion-icon name="disc"></ion-icon>Bài hát đã
-                                thích
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="album.php" class="nav-link">
-                                <ion-icon name="disc"></ion-icon>Album
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav-bottom">
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <ion-icon name="settings"></ion-icon>Cài đặt
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <header class="header">
-                <form action="search.php" method="post" class="search-engine">
-                    <ion-icon name="search"></ion-icon>
-                    <input
-                        type="text" name="search1" id="search"
-                        class="search-input"
-                        placeholder="Tên nghệ sĩ hoặc bài hát" autocomplete="off" required
-                    />
-                    <ul class="search-hints"></ul>
-                    <div class="listGroup">
-                        <ul style ="  list-style-type: none;padding: 0;margin: 0;" id="show-list">
-                        </ul>
-                    </div>
-                </form>
-                <?php if(isset($_SESSION['currUser'])){?>
-                <div class="user">
-                    <img
-                        src="<?='./assets/avatar/'.$_SESSION['path']?>"
-                        alt="Avatar"
-                        class="user-avatar"
-                    />
-                    <span class="user-name"><?=$_SESSION['name']?></span>
-                    <ion-icon name="chevron-down-outline"></ion-icon>
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="view_user.php" class="nav-link">
-                                <ion-icon name="person"></ion-icon>Trang cá nhân
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="logout.php" class="nav-link">
-                                <ion-icon name="log-out-outline"></ion-icon>Đăng
-                                xuất
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php }else{?>
-                <div class="user">
-                    <img
-                        src="./assets/img/iconTrang.jpg"
-                        alt="Avatar"
-                        class="user-avatar"
-                    />
-                    <span class="user-name">Chưa có tài khoản</span>
-                    <ion-icon name="chevron-down-outline"></ion-icon>
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="login.php" class="nav-link">
-                                <ion-icon name="log-out-outline"></ion-icon>Đăng
-                                nhập
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <?php }?>
-            </header>
+            <?php include "templates/sidebar.html";?>
+            <!-- Header -->
+            <?php include "templates/header.php";?>
             <main class="main">
                 <!-- Trending Songs -->
                 <section class="cards">
@@ -156,22 +72,24 @@ if(isset($_SESSION['currUser'])){
                     <?php foreach($songs as $song): ?>
                         <a href="songpage.php?audio_id=<?=$song['audio_id']?>" class="card card-song">
                         <!-- <a class="card card-song"> -->
+                            <audio src="<?=($_SESSION["links_songs"].$song['audio_location'])?>" class="card-song__audio"></audio>
                             <img
                                 src="<?=($_SESSION["links_pictures"].$song['thumbnail'])?>"
                                 
                                 alt=""
-                                class="card-img"
+                                class="card-img card-song__card-img"
                             />
                             <div class="card-content">
-                                <h4 class="card-title"><?=$song['title']?> </h4>
-                                <span class="card-desc"><?=$song['stagename']?></span>
+                                <h4 class="card-title card-song__card-title"><?=$song['title']?> </h4>
+                                <span class="card-desc card-song__card-desc"><?=$song['stagename']?></span>
                             </div>
-                            <button class="play-song-btn">
-                                <ion-icon class="play-icon" name="play"></ion-icon> 
+                            <button class="play-song-btn" onclick="playPauseTrack(); return false;" >
+                                <ion-icon class="play-icon" name="play" onclick="return false;"></ion-icon> 
                             </button>
                         </a>
                     <?php endforeach; ?>
                     </div>
+                    <div class="waveform" style="display: none"></div>
                 </section>
 
                 <!-- Popular Artists -->
@@ -182,7 +100,7 @@ if(isset($_SESSION['currUser'])){
                     </div>
                     <div class="cards-bottom">
                     <?php foreach($artists as $artist): ?>
-                        <a href="" class="card">
+                        <a href="artistpage.php?id=<?=$artist['id']?>" class="card">
                             <img
                                 src="<?=($_SESSION["avatar"].$artist['image'])?>"
                                 alt=""
@@ -199,16 +117,15 @@ if(isset($_SESSION['currUser'])){
             </main>
             <!-- Music Player -->
             <div class="music-player">
-            <div class="waveform" style="display: none"></div>
                 <div class="song">
                     <img
-                        src="./assets/img/tron tim.jpg"
+                        src="https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG11c2ljfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
                         alt=""
                         class="song__thumb"
                     />
                     <div class="song__desc">
-                        <h4 class="song__title">Trốn tìm</h4>
-                        <p class="song__artist">Đen Vâu</p>
+                        <h4 class="song__title">Tên bài hát</h4>
+                        <p class="song__artist">Nghệ sĩ</p>
                     </div>
                     <div class="heart" onclick="favorite(this)">
                         <ion-icon name="heart-outline"></ion-icon>
@@ -231,7 +148,7 @@ if(isset($_SESSION['currUser'])){
                         <ion-icon class="repeat" name="repeat"></ion-icon>
                     </div>
                     <div class="timer">
-                        <div class="current">1:02</div>
+                        <div class="current">00:00</div>
                         <input
                             type="range"
                             name="track"
@@ -239,14 +156,14 @@ if(isset($_SESSION['currUser'])){
                             class="range"
                         />
                         <audio
-                            src="./assets/music/tron-tim-den-vau.mp3"
+                            src="<?=($_SESSION["links_songs"].$song1['audio_location'])?>"
                             id="song"
                         ></audio>
                         <div class="duration">4:08</div>
                     </div>
                 </div>
                 <div class="action">
-                    <a href="./assets/music/tron-tim-den-vau.mp3" download>
+                    <a href="<?=($_SESSION["links_songs"].$song1['audio_location'])?>" download>
                         <ion-icon
                             class="cloud-download-outline"
                             name="cloud-download-outline"
@@ -272,9 +189,12 @@ if(isset($_SESSION['currUser'])){
                 </div>
             </div>
         </div>
+        <?php include "templates/script.php";?>
+        <!-- <script src="javascript/sidebar.js"></script>
         <script src="https://unpkg.com/wavesurfer.js"></script>
-        <script src="javascript/app.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="search.js"></script>        
+        <script src="javascript/app.js"></script>
+        <script src="search.js"></script>  
+        <script src="like.js"></script>  -->
     </body>
 </html>
