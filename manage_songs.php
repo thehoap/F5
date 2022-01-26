@@ -20,6 +20,7 @@ if(isset($_SESSION['currAdmin'])){
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -137,13 +138,77 @@ if(isset($_SESSION['currAdmin'])){
                 </div>
                 <?php }?>
             </header>
-            <main class="main">
-                <!-- Trending Songs -->
-                
+            <main class="main" >
+                <style>
+                    #songs {
+                        font-family: Arial, Helvetica, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
 
-                <!-- Popular Artists -->
-                
-            <!-- Music Player -->
+                    #songs td, #songs th {
+                        border: 1px solid #ddd;
+                        padding: 8px;
+                    }
+
+                    #songs tr:nth-child(even){background-color: #f2f2f2;}
+
+                    #songs tr:hover {background-color: #ddd;}
+
+                    #songs th {
+                        padding-top: 12px;
+                        padding-bottom: 12px;
+                        text-align: left;
+                        background-color: #04AA6D;
+                        color: white;
+                    }
+                </style>
+                <h1>LIST SONG</h1>
+                <table id = "songs">
+                    <tr>
+                        <td>Mã Bài Hát</td>
+                        <td>Nghệ Sĩ</td>
+                        <td>Tên Bài Hát</td>
+                        <td>Thể Loại</td>
+                        <td>Lượt Nghe</td>
+                        <td>Hành Động</td>
+                    </tr>
+
+                <?php
+                    include 'db_connect.php';
+                    $sql_song = "SELECT * FROM songs";
+                    $result_song = mysqli_query($conn, $sql_song);
+
+
+                    while($row=mysqli_fetch_array($result_song)){
+                ?>
+                    <tr>
+                        <td><?php echo $row['audio_id']; ?></td>
+                        <td>
+                            <?php
+                                $user_id = $row['user_id'];
+                                $sql_singer = "SELECT * FROM users where id ='$user_id'";
+                                $result = mysqli_query($conn, $sql_singer);
+                                $row_singer=mysqli_fetch_array($result);
+                                echo $row_singer['stagename'];
+                            ?>
+                        </td>
+
+                        <td><?php echo $row['title']; ?></td>
+                        <td><?php echo $row['category']; ?></td>
+                         <td><?php echo $row['view']; ?></td>
+
+                        <td><a href="edit_song.php?audio_id=<?php echo $row['audio_id']; ?>">Edit</a> /
+                            <a href="delete_song.php?audio_id=<?php echo $row['audio_id']; ?>">Delete</a>
+                        </td>
+                       
+                    </tr>
+                <?php
+                    }
+                ?>
+                </table>
+
+                <footer style="height: 100px"></footer>
             </main>
         <script src="https://unpkg.com/wavesurfer.js"></script>
         <script src="javascript/app.js"></script>
