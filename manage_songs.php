@@ -55,6 +55,7 @@ if(isset($_SESSION['currAdmin'])){
         <link rel="stylesheet" href="./css/base.css" />
         <link rel="stylesheet" href="./css/app.css" />
         <link rel="stylesheet" href="./css/search.css" />
+        <link rel="stylesheet" href="./css/table.css" />
     </head>
     <body>
         <div class="grid">
@@ -64,7 +65,7 @@ if(isset($_SESSION['currAdmin'])){
                 <nav class="nav">
                     <ul class="nav-top">
                         <li class="nav-item">
-                            <a href="manage_songs.php" class="nav-link">
+                            <a href="manage_songs.php" class="nav-link selected">
                                 <ion-icon name="disc"></ion-icon>Quản lý bài hát
                             </a>
                         </li>
@@ -138,41 +139,19 @@ if(isset($_SESSION['currAdmin'])){
                 </div>
                 <?php }?>
             </header>
-            <main class="main" >
-                <style>
-                    #songs {
-                        font-family: Arial, Helvetica, sans-serif;
-                        border-collapse: collapse;
-                        width: 100%;
-                    }
-
-                    #songs td, #songs th {
-                        border: 1px solid #ddd;
-                        padding: 8px;
-                    }
-
-                    #songs tr:nth-child(even){background-color: #f2f2f2;}
-
-                    #songs tr:hover {background-color: #ddd;}
-
-                    #songs th {
-                        padding-top: 12px;
-                        padding-bottom: 12px;
-                        text-align: left;
-                        background-color: #04AA6D;
-                        color: white;
-                    }
-                </style>
-                <h1>LIST SONG</h1>
+            <main class="main" style="transform: translateY(-150px);">
+                <h1 class="table-title">Danh sách bài hát</h1>
                 <table id = "songs">
-                    <tr>
-                        <td>Mã Bài Hát</td>
-                        <td>Nghệ Sĩ</td>
-                        <td>Tên Bài Hát</td>
-                        <td>Thể Loại</td>
-                        <td>Lượt Nghe</td>
-                        <td>Hành Động</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Mã Bài Hát</th>
+                            <th>Nghệ Sĩ</th>
+                            <th>Tên Bài Hát</th>
+                            <th>Thể Loại</th>
+                            <th>Lượt Nghe</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
 
                 <?php
                     include 'db_connect.php';
@@ -182,33 +161,36 @@ if(isset($_SESSION['currAdmin'])){
 
                     while($row=mysqli_fetch_array($result_song)){
                 ?>
-                    <tr>
-                        <td><?php echo $row['audio_id']; ?></td>
-                        <td>
-                            <?php
-                                $user_id = $row['user_id'];
-                                $sql_singer = "SELECT * FROM users where id ='$user_id'";
-                                $result = mysqli_query($conn, $sql_singer);
-                                $row_singer=mysqli_fetch_array($result);
-                                echo $row_singer['stagename'];
-                            ?>
-                        </td>
+                    <tbody>
 
-                        <td><?php echo $row['title']; ?></td>
-                        <td><?php echo $row['category']; ?></td>
-                         <td><?php echo $row['view']; ?></td>
-
-                        <td><a href="edit_song.php?audio_id=<?php echo $row['audio_id']; ?>">Edit</a> /
-                            <a href="delete_song.php?audio_id=<?php echo $row['audio_id']; ?>">Delete</a>
-                        </td>
-                       
-                    </tr>
+                        <tr>
+                            <td><?php echo $row['audio_id']; ?></td>
+                            <td>
+                                <?php
+                                    $user_id = $row['user_id'];
+                                    $sql_singer = "SELECT * FROM users where id ='$user_id'";
+                                    $result = mysqli_query($conn, $sql_singer);
+                                    $row_singer=mysqli_fetch_array($result);
+                                    echo $row_singer['stagename'];
+                                ?>
+                            </td>
+    
+                            <td><?php echo $row['title']; ?></td>
+                            <td><?php echo $row['category']; ?></td>
+                             <td><?php echo $row['view']; ?></td>
+    
+                            <td>
+                                <a href="delete_song.php?audio_id=<?php echo $row['audio_id']; ?>">
+                                    <ion-icon name="trash"></ion-icon>
+                                </a>
+                            </td>
+                           
+                        </tr>
+                    </tbody>
                 <?php
                     }
                 ?>
                 </table>
-
-                <footer style="height: 100px"></footer>
             </main>
         <script src="https://unpkg.com/wavesurfer.js"></script>
         <script src="javascript/app.js"></script>

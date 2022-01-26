@@ -55,6 +55,7 @@ if(isset($_SESSION['currAdmin'])){
         <link rel="stylesheet" href="./css/base.css" />
         <link rel="stylesheet" href="./css/app.css" />
         <link rel="stylesheet" href="./css/search.css" />
+        <link rel="stylesheet" href="./css/table.css" />
     </head>
     <body>
         <div class="grid">
@@ -69,7 +70,7 @@ if(isset($_SESSION['currAdmin'])){
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="manage_users.php" class="nav-link">
+                            <a href="manage_users.php" class="nav-link selected">
                                 <ion-icon name="person"></ion-icon>Quản lý người dùng
                             </a>
                         </li>
@@ -139,38 +140,16 @@ if(isset($_SESSION['currAdmin'])){
                 <?php }?>
             </header>
             <main class="main">
-                <style>
-                    #songs {
-                        font-family: Arial, Helvetica, sans-serif;
-                        border-collapse: collapse;
-                        width: 100%;
-                    }
-
-                    #songs td, #songs th {
-                        border: 1px solid #ddd;
-                        padding: 8px;
-                    }
-
-                    #songs tr:nth-child(even){background-color: #f2f2f2;}
-
-                    #songs tr:hover {background-color: #ddd;}
-
-                    #songs th {
-                        padding-top: 12px;
-                        padding-bottom: 12px;
-                        text-align: left;
-                        background-color: #04AA6D;
-                        color: white;
-                    }
-                </style>
-                <h1>LIST USER</h1>
+                <h1 class="table-title">Danh sách người dùng</h1>
                 <table id = "songs">
-                    <tr>
-                        <td>Mã Người Dùng</td>
-                        <td>Họ Tên</td>
-                        <td>Ngày Tạo Tài Khoản</td>
-                        <td>Hành Động</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Mã Người Dùng</th>
+                            <th>Họ Tên</th>
+                            <th>Ngày Tạo Tài Khoản</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
 
                 <?php
                     include 'db_connect.php';
@@ -180,22 +159,22 @@ if(isset($_SESSION['currAdmin'])){
 
                     while($row=mysqli_fetch_array($result_song)){
                 ?>
-                    <tr>
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo $row['stagename']; ?></td>
-                        <td><?php echo $row['date_created']; ?></td>
-    
-                        <td>
-                            <a href="delete_user.php?id=<?php echo $row['id']; ?>">Delete</a>
-                        </td>
-                       
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td><?php echo $row['id']; ?></td>
+                            <td><?php echo $row['stagename']; ?></td>
+                            <td><?php echo $row['date_created']; ?></td>
+                            <td>
+                                <a href="delete_user.php?id=<?php echo $row['id']; ?>">
+                                    <ion-icon name="trash"></ion-icon>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
                 <?php
                     }
                 ?>
                 </table>
-
-                <footer style="height: 100px"></footer>
             </main>
         <script src="https://unpkg.com/wavesurfer.js"></script>
         <script src="javascript/app.js"></script>

@@ -1,0 +1,40 @@
+table {
+    font-family: "Lato", sans-serif;
+    color: var(--primary-color);
+    border-collapse: collapse;
+    text-align: left;
+    width: 100%;
+    border: 1px solid var(--primary-color);
+}
+table tr {
+    background: var(--secondary-color);
+}
+table th{
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+table td {
+    font-size: 1.4rem;
+    padding: 10px 20px;
+}
+table td span {
+    background: #eee;
+    color: dimgrey;
+    display: none;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 5px;
+    position: absolute;
+    text-transform: uppercase;
+    top: 0;
+    left: 0;
+}
+.table-title{
+    font-size: 3.2rem;
+    color: var(--primary-color);
+    margin: 4rem 0 3.2rem;
+}

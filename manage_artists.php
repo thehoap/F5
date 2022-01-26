@@ -55,6 +55,7 @@ if(isset($_SESSION['currAdmin'])){
         <link rel="stylesheet" href="./css/base.css" />
         <link rel="stylesheet" href="./css/app.css" />
         <link rel="stylesheet" href="./css/search.css" />
+        <link rel="stylesheet" href="./css/table.css" />
     </head>
     <body>
         <div class="grid">
@@ -74,7 +75,7 @@ if(isset($_SESSION['currAdmin'])){
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="manage_artists.php" class="nav-link">
+                            <a href="manage_artists.php" class="nav-link selected">
                                 <ion-icon name="star"></ion-icon>Quản lý nghệ sĩ
                             </a>
                         </li>
@@ -139,40 +140,18 @@ if(isset($_SESSION['currAdmin'])){
                 <?php }?>
             </header>
             <main class="main" >
-                <style>
-                    #songs {
-                        font-family: Arial, Helvetica, sans-serif;
-                        border-collapse: collapse;
-                        width: 100%;
-                    }
-
-                    #songs td, #songs th {
-                        border: 1px solid #ddd;
-                        padding: 8px;
-                    }
-
-                    #songs tr:nth-child(even){background-color: #f2f2f2;}
-
-                    #songs tr:hover {background-color: #ddd;}
-
-                    #songs th {
-                        padding-top: 12px;
-                        padding-bottom: 12px;
-                        text-align: left;
-                        background-color: #04AA6D;
-                        color: white;
-                    }
-                </style>
-                <h1>LIST ARTIST</h1>
+                <h1 class="table-title">Danh sách nghệ sĩ</h1>
                 <table id = "songs">
-                    <tr>
-                        <td>Mã Nghệ Sĩ</td>
-                        <td>Nghệ Danh</td>
-                        <td>Thể Loại</td>
-                        <td>Số Bài Hát</td>
-                        <td>Ngày Debut</td>
-                        <td>Hành Động</td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Mã Nghệ Sĩ</th>
+                            <th>Nghệ Danh</th>
+                            <th>Thể Loại</th>
+                            <th>Số Bài Hát</th>
+                            <th>Ngày Debut</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
 
                 <?php
                     include 'db_connect.php';
@@ -181,7 +160,8 @@ if(isset($_SESSION['currAdmin'])){
                    
                     while($row=mysqli_fetch_array($result_song)){
                 ?>
-                    <tr>
+                    <tbody>
+                        <tr>
                         <td><?php echo $row['id']; ?></td>
                         <td>
                             <?php echo $row['stagename']; ?>
@@ -198,17 +178,18 @@ if(isset($_SESSION['currAdmin'])){
                         </td>
                          <td><?php echo $row['date_created']; ?></td>
 
-                        <td><a href="edit_artist.php?id=<?php echo $row['id']; ?>">Edit</a> /
-                            <a href="delete_artist.php?id=<?php echo $row['id']; ?>">Delete</a>
+                        <td>
+                            <a href="delete_artist.php?id=<?php echo $row['id']; ?>">
+                                <ion-icon name="trash"></ion-icon>
+                            </a>
                         </td>
                        
                     </tr>
+                    </tbody>
                 <?php
                     }
                 ?>
                 </table>
-
-                <footer style="height: 100px"></footer>
             </main>
         <script src="https://unpkg.com/wavesurfer.js"></script>
         <script src="javascript/app.js"></script>

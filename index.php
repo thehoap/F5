@@ -71,7 +71,6 @@ if(isset($_SESSION['currUser'])){
                     <div class="cards-bottom">
                     <?php foreach($songs as $song): ?>
                         <a href="songpage.php?audio_id=<?=$song['audio_id']?>" class="card card-song">
-                        <!-- <a class="card card-song"> -->
                             <audio src="<?=($_SESSION["links_songs"].$song['audio_location'])?>" class="card-song__audio"></audio>
                             <img
                                 src="<?=($_SESSION["links_pictures"].$song['thumbnail'])?>"
