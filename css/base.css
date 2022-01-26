@@ -47,6 +47,11 @@ textarea {
 li {
     list-style: none;
 }
+input[type="checkbox"] {
+    width: 1.6rem;
+    height: 1.6rem;
+    background-color: red;
+}
 /* Logo */
 .logo {
     width: 50%;
@@ -62,7 +67,7 @@ li {
     transform: translate(-50%, -50%);
     width: 450px;
     background-color: var(--half-secondary-color);
-    padding: 2rem 4rem;
+    padding: 0 4rem 2rem;
     margin: auto;
     border-radius: 2.5rem;
 }
@@ -97,12 +102,13 @@ li {
 .form-input {
     width: 100%;
     display: inline-block;
-    padding: 2rem;
-    border-radius: 1rem;
+    padding: 1.4rem 1.8rem;
+    border-radius: 1.2rem;
     font-size: 1.4rem;
     border: 1px solid transparent;
     outline: none;
     transition: border 0.25s linear;
+    color: var(--primary-color);
 }
 .form-input:focus {
     border: 1px solid var(--primary-color);
@@ -112,6 +118,7 @@ li {
     /* position: relative; */
     display: grid;
     min-height: 100vh;
+    grid-gap: 0;
     grid-template-columns: minmax(12rem, 24rem) repeat(11, 1fr);
     grid-template-rows: repeat(12, 1fr);
 }

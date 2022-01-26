@@ -101,9 +101,6 @@ if (isset($_POST['submit'])){
             <img src="./assets/Logo F5.svg" alt="F5MP3" class="logo" />
             <p class="desc">Trang chia sẻ và tải nhạc trực tuyến</p>
             <div class="form-group">
-                <input type="text" class="form-input" placeholder="Nghệ danh" name="stagename" required/>
-            </div>
-            <div class="form-group">
                 <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" required/>
             </div>
             <div class="form-group">
@@ -112,22 +109,31 @@ if (isset($_POST['submit'])){
             <div class="form-group">
                 <input type="password" class="form-input" placeholder="Xác nhận mật khẩu" name="cpassword" required/>
             </div>
-            <div class="form-group">
-                <input type="radio" name="type" value="3" required>
-                <label for="type">Đăng ký nghệ sĩ</label>
+            <div class="form-group form-group__file" >
+                <label for="image" class="avatar-file">
+                    <ion-icon name="image-outline"></ion-icon>
+                    Ảnh đại diện
+                </label>
+                <input type="file" name="image" id ="image" required accept="image/*"/>
+                <img class="avatar"/>
             </div>
             <div class="form-group">
-                <input type="radio" name="type" value="2" required>
-                <label for="type">Đăng ký người nghe</label>
+                <input type="checkbox" name="type" class="checkbox-input" id="type" value="3" required onclick="checkedToAble()"/>
+                <label for="type" class="checkbox-label">Đăng ký nghệ sĩ</label>
             </div>
-             <div class="form-group" >
-             <input type="file" name="image" id = "image" required> 
+            <div class="form-group">
+                <input type="text" class="form-input"  id="stagename" placeholder="Nghệ danh" name="stagename" required disabled/>
             </div>
             <div class="form-group">
                 <button name="submit" class="primary-btn">Đăng ký</button>
             </div>
-           
-            <p class="login-register-text"> Đã có tài khoản<a href="login.php">Đăng nhập</a>.</p>
+            <p class="login-register-text">
+                Bạn đã có tài khoản?
+                <a href="login.php" class="login-register-link">
+                    Đăng nhập ngay!
+                </a>
+            </p>
         </form>
+        <script src="javascript/register.js"></script>
     </body>
 </html>

@@ -37,21 +37,9 @@
     </div>
     <?php }else{?>
     <div class="user">
-        <img
-            src="./assets/img/iconTrang.jpg"
-            alt="Avatar"
-            class="user-avatar"
-        />
-        <span class="user-name">Chưa có tài khoản</span>
-        <ion-icon name="chevron-down-outline"></ion-icon>
-        <ul class="nav sub-menu">
-            <li class="nav-item">
-                <a href="login.php" class="nav-link">
-                    <ion-icon name="log-out-outline"></ion-icon>Đăng
-                    nhập
-                </a>
-            </li>
-        </ul>
+        <a href="login.php" class="nav-link login-btn">
+            <ion-icon name="log-in-outline"></ion-icon>Đăng nhập
+        </a>
     </div>
     <?php }?>
 </header>
