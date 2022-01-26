@@ -20,6 +20,7 @@ if(isset($_SESSION['currAdmin'])){
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -138,12 +139,63 @@ if(isset($_SESSION['currAdmin'])){
                 <?php }?>
             </header>
             <main class="main">
-                <!-- Trending Songs -->
-                
+                <style>
+                    #songs {
+                        font-family: Arial, Helvetica, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
 
-                <!-- Popular Artists -->
-                
-            <!-- Music Player -->
+                    #songs td, #songs th {
+                        border: 1px solid #ddd;
+                        padding: 8px;
+                    }
+
+                    #songs tr:nth-child(even){background-color: #f2f2f2;}
+
+                    #songs tr:hover {background-color: #ddd;}
+
+                    #songs th {
+                        padding-top: 12px;
+                        padding-bottom: 12px;
+                        text-align: left;
+                        background-color: #04AA6D;
+                        color: white;
+                    }
+                </style>
+                <h1>LIST USER</h1>
+                <table id = "songs">
+                    <tr>
+                        <td>Mã Người Dùng</td>
+                        <td>Họ Tên</td>
+                        <td>Ngày Tạo Tài Khoản</td>
+                        <td>Hành Động</td>
+                    </tr>
+
+                <?php
+                    include 'db_connect.php';
+                    $sql_song = "SELECT * FROM users where type = 2";
+                    $result_song = mysqli_query($conn, $sql_song);
+
+
+                    while($row=mysqli_fetch_array($result_song)){
+                ?>
+                    <tr>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo $row['stagename']; ?></td>
+                        <td><?php echo $row['date_created']; ?></td>
+    
+                        <td>
+                            <a href="delete_user.php?id=<?php echo $row['id']; ?>">Delete</a>
+                        </td>
+                       
+                    </tr>
+                <?php
+                    }
+                ?>
+                </table>
+
+                <footer style="height: 100px"></footer>
             </main>
         <script src="https://unpkg.com/wavesurfer.js"></script>
         <script src="javascript/app.js"></script>
