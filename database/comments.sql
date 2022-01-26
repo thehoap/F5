@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 26, 2022 lúc 11:28 AM
+-- Thời gian đã tạo: Th1 26, 2022 lúc 03:38 PM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
 -- Phiên bản PHP: 7.3.31
 
@@ -40,9 +40,9 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `uid`, `audio_id`, `message`, `date`) VALUES
-(1, 0, 0, 'ahihi', '2022-01-26'),
-(2, 0, 0, '679', '2022-01-26'),
-(3, 0, 0, 'ctu', '2022-01-26');
+(4, 37, 16, 'Bài hát thật tuyêt!', '2022-01-26'),
+(5, 39, 16, 'Quá hay!!!', '2022-01-26'),
+(6, 39, 21, 'hihi', '2022-01-26');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -62,7 +62,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT cho bảng `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
