@@ -1,19 +1,6 @@
-<<<<<<< HEAD
 <?php
 include 'config.php';
 $pdo = pdo_connect_mysql();
-=======
-<!DOCTYPE html>
-<html>
-<head>
-
-<link rel="stylesheet" href="style.css"/>
- <link rel="stylesheet" href="./css/app.css" />
-</head>
-<body>
-<?php
-session_start();
->>>>>>> fad663d (update adminpage 26.01.2022)
 include 'db_connect.php';
 if(isset($_SESSION['currUser'])){
     $id=$_SESSION['currUser'];
@@ -22,7 +9,6 @@ if(isset($_SESSION['currUser'])){
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
         $paths=$row['image'];
-<<<<<<< HEAD
         $level=$row['type'];
     } else {
         echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
@@ -93,26 +79,17 @@ if (isset($_POST['update_users'])){
             <!-- Header -->
             <?php include "templates/header.php";?>
             <main class="main">
-                <section class="cards">
-                    <div class="cards-top">
-                        <h3 class="cards-title">Thông tin cá nhân</h3>
-                    </div>
-                    <form method="POST" class="form">
-                    <a href="update_avatar.php?>" class="card">
-                        <img
-                            src="<?='./assets/avatar/'.$paths?>"
-                            alt="Avatar"
-                            class="card-img"
-                        />
-                    </a>
-                </section>
-                <label>Nghệ danh: <input type="text" value="<?php echo $row['stagename']; ?>" name="stagename"></label><br/>
-                <?php if ($level=='3'){?>
-                    <label>Hoạt động: <input type="text" value="<?php echo $row['occupation']; ?>" name="occupation"></label><br/>
-                <?php }?>
-                <input type="submit" value="Chỉnh sửa thông tin" name="update_users">
 
-                </form>
+                <section class="profile">
+                    <img src="<?=($_SESSION["avatar"] ="./assets/avatar/".$_SESSION['path'] )?>" alt="" class="profile__img" />
+                    <div class="profile__info">
+                        <div class="profile__auth">
+                            <ion-icon name="checkmark-circle"></ion-icon>
+                            Nghệ sĩ được xác minh
+                        </div>
+                        <h2 class="profile__name"><?= $_SESSION['name'] ?></h2>
+                    </div>
+                </section>
     
                 <!-- Playlist -->
                 <?php if(count($list_songs)>0){?>
@@ -143,6 +120,8 @@ if (isset($_POST['update_users'])){
                         <h3 class="cards-title">Thêm bài hát yêu thích của bạn bây giờ nào!</h3>  
                     </div>
                 <?php }?>
+                <footer style="height: 100px"></footer>
+
             </main>
             <!-- Music Player -->
             <div class="music-player">
@@ -221,43 +200,3 @@ if (isset($_POST['update_users'])){
         <?php include "templates/script.php";?>
     </body>
 </html>
-=======
-    } else {
-        echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
-    }
-}
-
-?>
-<form method="POST" class="form">
-<h2>Thông tin cá nhân</h2>
-<div>
-<a href="update_avatar.php">
-    <img
-                        src="<?='./assets/avatar/'.$_SESSION['path']?>"
-                        alt="Avatar"
-                        class="user-avatar"
-                    /></a><br/>
-<label>Name: <input type="text" placeholder="<?php echo $row['stagename']; ?>" name="stagename"></label><br/>
-
-<input type="submit" value="Chỉnh sửa thông tin" name="update_users">
-</div>
-<?php
-if (isset($_POST['update_users'])){
-
-$stagename=$_POST['stagename'];
-
-
-$query = "UPDATE `users` SET stagename='$stagename' WHERE id='$id'";
-if ($conn->query($query) == TRUE) {
-echo "Record updated successfully";
-header("location:index.php");
-} else {
-echo "Error updating record: " . $conn->error;
-}
-$conn->close();
-}
-?>
-</form>
-</body>
-</html>
->>>>>>> fad663d (update adminpage 26.01.2022)
