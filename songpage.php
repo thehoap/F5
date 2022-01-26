@@ -1,7 +1,4 @@
 <?php
-date_default_timezone_set('Asia/Ho_Chi_Minh');
-include 'db_comment_connect.php';
-include 'comment.inc.php';
 //session_start();
 include 'config.php';
 $pdo = pdo_connect_mysql();
@@ -68,11 +65,6 @@ if (isset($_GET['audio_id'])){
             <main class="main">
                 <section class="cover">
                     <div class="cover-content">
-                        <!-- <div class="cover-info">
-                            <button class="play-song-btn cover__play-song-btn" onclick="playPauseTrack(); return false;" >
-                                <ion-icon class="play-icon" name="play" onclick="return false;"></ion-icon> 
-                            </button>
-                        </div> -->
                         <div class="cover-info">
                             <button class="play-song-btn cover__play-song-btn" onclick="playPauseTrack(); return false;" >
                                 <ion-icon class="play-icon" name="play" onclick="return false;"></ion-icon> 
@@ -95,7 +87,7 @@ if (isset($_GET['audio_id'])){
                     />
                 </section>
                 <section class="interaction">
-                    <a href="./index copy.html" class="card">
+                    <a href="artistpage.php?id=<?=$song1['user_id']?>" class="card">
                         <img
                             src="<?=($_SESSION["avatar"].$song1['image'])?>"
                             alt=""
@@ -107,30 +99,7 @@ if (isset($_GET['audio_id'])){
                         </div>
                     </a>
                     <section class="comment-box">
-                        <?php
-                            echo "<form method='POST' action='".setComments($conn)."' class='comment-top'>
-                                <img
-                                    src='./assets/img/ian-dooley-d1UPkiFd04A-unsplash.jpg'
-                                    alt='Avatar'
-                                    class='user-avatar'
-                                />
-                                <input type = 'hidden' name = 'uid' value='Anonymous'>
-                                <input type = 'hidden' name = 'date' value = '".date('Y-m-d H:i:s')."'>
-                                <textarea
-                                    required
-                                    name='message'
-                                    id='comment-input'
-                                    cols='30'
-                                    rows='3'
-                                    class='form-input'
-                                    placeholder='Bạn nghĩ gì về bài nhạc này? '
-                                ></textarea>
-                                <button type = 'submit' class='primary-btn comment-btn' name= 'submitComment'>Bình luận</button>
-                                </form>";
-                            getComment($conn);
-        
-                        ?>
-                        <!-- <form class="comment-top">
+                        <form class="comment-top">
                             <div>
                                 <img
                                     src="./assets/img/ian-dooley-d1UPkiFd04A-unsplash.jpg"
@@ -149,8 +118,8 @@ if (isset($_GET['audio_id'])){
                             <button type="submit" class="primary-btn comment-btn">
                                 Bình luận
                             </button>
-                        </form> -->
-                        <!-- <ul class="comment-bottom">
+                        </form>
+                        <ul class="comment-bottom">
                             <li class="comment">
                                 <img
                                     src="./assets/img/andriyko-podilnyk-3p6RZXty-7c-unsplash.jpg"
@@ -205,7 +174,7 @@ if (isset($_GET['audio_id'])){
                                     </p>
                                 </div>
                             </li>
-                        </ul> -->
+                        </ul>
                     </section>
                 </section>
             </main>
