@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Ho_Chi_Minh');
-include 'db_comment_connect.php';
+include 'db_connect.php';
 include 'comment.inc.php';
 //session_start();
 include 'config.php';
