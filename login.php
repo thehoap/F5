@@ -78,9 +78,9 @@ if (isset($_POST['submit'])) {
             </div>
             <a href="" class="desc">Quên mật khẩu?</a>
             <hr />
-            <div class="form-group">
-                <button class="primary-btn"><a href="register.php">Đăng ký</a></button>		
-            </div>
+            <p class="login-register-text">
+                Bạn chưa có tài khoản? <a href="register.php" class="login-register-link">Đăng ký ngay!</a>		
+            </p>
         </form>
     </body>
 </html>

@@ -110,7 +110,7 @@ if (isset($_POST['submit'])){
             <img src="./assets/Logo F5.svg" alt="F5MP3" class="logo" />
             <p class="desc">Trang chia sẻ và tải nhạc trực tuyến</p>
             <div class="form-group">
-                <input type="text" class="form-input" placeholder="Nghệ danh" name="stagename" required/>
+                <input type="text" class="form-input" placeholder="Tên hiển thị" name="stagename" required/>
             </div>
             <div class="form-group">
                 <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" required/>
@@ -134,7 +134,7 @@ if (isset($_POST['submit'])){
                 <label for="type" class="checkbox-label">Đăng ký nghệ sĩ</label>
             </div>
             <div class="form-group">
-                <input type="text" class="form-input"  id="stagename" placeholder="Hoạt động(nhóm nhạc, ca sĩ,...)" name="occupation" required disabled/>
+                <input type="text" class="form-input"  id="stagename" placeholder="Hoạt động (nhóm nhạc, ca sĩ,...)" name="occupation" required disabled/>
             </div>
             <div class="form-group">
                 <button name="submit" class="primary-btn">Đăng ký</button>

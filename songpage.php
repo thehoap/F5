@@ -112,6 +112,7 @@ if (isset($_GET['audio_id'])){
                         <?php
                             if(isset($_SESSION['currUser'])){
                             echo "<form method='POST' action='".setComments($conn)."' class='comment-top'>
+                                <div>
                                 <img
                                     src=".$_SESSION['avatar'].$_SESSION['path']."
                                     alt='Avatar'
@@ -129,6 +130,7 @@ if (isset($_GET['audio_id'])){
                                     class='form-input'
                                     placeholder='Bạn nghĩ gì về bài nhạc này? '
                                 ></textarea>
+                                </div>
                                 <button type = 'submit' class='primary-btn comment-btn' name= 'submitComment'>Bình luận</button>
                                 </form>";
                             }

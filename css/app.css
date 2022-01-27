@@ -565,13 +565,6 @@ input[type="file"] {
 }
 .category-option {
     color: var(--primary-color);
-    /* position: relative;
-    background: linear-gradient(
-        to right,
-        #ffffff 95%,
-        var(--primary-color) 95% 99%,
-        #fff 1%
-    ); */
 }
 .category-option option {
     color: var(--primary-color);
