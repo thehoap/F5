@@ -14,10 +14,19 @@ if(isset($_SESSION['currUser'])){
         echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
     }
     $user_id = $_SESSION['currUser'];
-    $stmt1 = $pdo->prepare('SELECT *,stagename FROM songs LEFT JOIN likes on songs.audio_id=likes.audio_id 
-                                                          LEFT JOIN users on songs.user_id=users.id WHERE likes.user_id = ?');
-    $stmt1->execute([ $user_id ]);
-    $list_songs = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+
+    if($_SESSION['type']=='3'){
+        $stmt2 = $pdo->prepare('SELECT *,stagename FROM songs LEFT JOIN users on
+                                                        songs.user_id=users.id WHERE songs.user_id = ?'); 
+        $stmt2->execute([ $user_id]); 
+        $songs = $stmt2->fetchAll(PDO::FETCH_ASSOC); 
+    }
+    else{
+        $stmt1 = $pdo->prepare('SELECT *,stagename FROM songs LEFT JOIN likes on songs.audio_id=likes.audio_id 
+                                                            LEFT JOIN users on songs.user_id=users.id WHERE likes.user_id = ?');
+        $stmt1->execute([ $user_id ]);
+        $list_songs = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 if (isset($_POST['update_users'])){
@@ -83,15 +92,54 @@ if (isset($_POST['update_users'])){
                 <section class="profile">
                     <img src="<?=($_SESSION["avatar"] ="./assets/avatar/".$_SESSION['path'] )?>" alt="" class="profile__img" />
                     <div class="profile__info">
-                        <div class="profile__auth">
-                            <ion-icon name="checkmark-circle"></ion-icon>
-                            Nghệ sĩ được xác minh
-                        </div>
+                        <?php if($_SESSION['type']=='3'){?>
+                            <div class="profile__auth">
+                                <ion-icon name="checkmark-circle"></ion-icon>
+                                Nghệ sĩ được xác minh
+                            </div>
+                        <?php } ?>
                         <h2 class="profile__name"><?= $_SESSION['name'] ?></h2>
                     </div>
                 </section>
     
                 <!-- Playlist -->
+
+                <?php if($_SESSION['type']=='3'){?>
+                    <section class="cards">
+                    <?php if ($songs){ ?>
+                    <div class="cards-top">
+                        <h3 class="cards-title">Bài hát phổ biến</h3>
+                    </div>
+                    <div class="cards-bottom">
+                        
+                        <?php foreach($songs as $song): ?>
+                        <a
+                            href="songpage.php?audio_id=<?=$song['audio_id']?>"
+                            class="card card-song"
+                        >
+                            <audio src="<?=($_SESSION["links_songs"].$song['audio_location'])?>" class="card-song__audio"></audio>
+                            <img src="<?=($_SESSION["links_pictures"].$song['thumbnail'])?>"
+                            alt="" class="card-img card-song__card-img" />
+                            <div class="card-content">
+                                <h4 class="card-title card-song__card-title"><?=$song['title']?></h4>
+                                <span class="card-desc card-song__card-desc"
+                                    ><?=$song['stagename']?></span
+                                >
+                            </div>
+                            <button class="play-song-btn" onclick="playPauseTrack(); return false;" >
+                                <ion-icon class="play-icon" name="play" onclick="return false;"></ion-icon> 
+                            </button>
+                        </a>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php }else{ ?>
+                        <div class="cards-top">
+                            <h3 class="cards-title">Chưa đăng bài hát nào!</h3>
+                        </div>
+                    <?php }?>
+                    </section>
+
+                <?php } else{?>
                 <?php if(count($list_songs)>0){?>
                 <section class="cards">
                     <div class="cards-top">
@@ -120,6 +168,8 @@ if (isset($_POST['update_users'])){
                         <h3 class="cards-title">Thêm bài hát yêu thích của bạn bây giờ nào!</h3>  
                     </div>
                 <?php }?>
+                <?php }?>
+
                 <footer style="height: 100px"></footer>
 
             </main>

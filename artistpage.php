@@ -5,10 +5,16 @@ $pdo = pdo_connect_mysql();
 
 if (isset($_GET['id'])){
     $stmt1 = $pdo->prepare('SELECT * FROM users WHERE id = ?');
-$stmt1->execute([ $_GET['id'] ]); $user = $stmt1->fetch(PDO::FETCH_ASSOC);
-$stmt2 = $pdo->prepare('SELECT *,stagename FROM songs LEFT JOIN users on
-songs.user_id=users.id WHERE songs.user_id = ?'); $stmt2->execute([ $_GET['id']
-]); $songs = $stmt2->fetchAll(PDO::FETCH_ASSOC); } else{ exit(); } ?>
+    $stmt1->execute([ $_GET['id'] ]); 
+    $user = $stmt1->fetch(PDO::FETCH_ASSOC);
+    $stmt2 = $pdo->prepare('SELECT *,stagename FROM songs LEFT JOIN users on
+                                                    songs.user_id=users.id WHERE songs.user_id = ?'); 
+    $stmt2->execute([ $_GET['id']]); 
+    $songs = $stmt2->fetchAll(PDO::FETCH_ASSOC); 
+} else{ 
+    exit(); 
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -65,11 +71,12 @@ songs.user_id=users.id WHERE songs.user_id = ?'); $stmt2->execute([ $_GET['id']
                 </section>
                 <!-- Artist Playlist -->
                 <section class="cards">
+                    <?php if ($songs){ ?>
                     <div class="cards-top">
                         <h3 class="cards-title">Bài hát phổ biến</h3>
                     </div>
                     <div class="cards-bottom">
-                        <?php if ($songs){ ?>
+                        
                         <?php foreach($songs as $song): ?>
                         <a
                             href="songpage.php?audio_id=<?=$song['audio_id']?>"
@@ -90,7 +97,11 @@ songs.user_id=users.id WHERE songs.user_id = ?'); $stmt2->execute([ $_GET['id']
                         </a>
                         <?php endforeach; ?>
                     </div>
-                    <?php } ?>
+                    <?php }else{ ?>
+                        <div class="cards-top">
+                            <h3 class="cards-title">Chưa đăng bài hát nào!</h3>
+                        </div>
+                    <?php }?>
                 </section>
                 <div class="waveform"></div>
             </main>

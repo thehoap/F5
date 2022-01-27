@@ -72,7 +72,7 @@ if (isset($_GET['name'])) {
                     </div>
                     <div class="cards-bottom">
                     <?php foreach($artists as $artist): ?>
-                        <a href="" class="card">
+                        <a href="artistpage.php?id=<?=$artist['id']?>" class="card">
                             <img
                                 src="<?=($_SESSION["avatar"].$artist['image'])?>"
                                 alt=""

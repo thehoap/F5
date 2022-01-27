@@ -59,6 +59,7 @@ if (isset($_GET['audio_id'])){
         ></script>
         <link rel="stylesheet" href="./css/base.css" />
         <link rel="stylesheet" href="./css/app.css" />
+        <link rel="stylesheet" href="./css/search.css" />
     </head>
     <body>
         <div class="grid">

@@ -14,6 +14,7 @@ if(isset($_SESSION['currUser'])){
         $path=$row['image'];
         $_SESSION['name'] = $name;
         $_SESSION['path'] = $path;
+        $_SESSION['type'] = $row['type'];
     } else {
         echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
     }
