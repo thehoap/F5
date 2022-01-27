@@ -11,7 +11,14 @@ if (isset($_POST['submit'])){
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $cpassword = md5($_POST['cpassword']);
-    $type=$_POST['type'];
+    if(isset($_POST['type'])){
+        $type = $_POST['type'];
+        $occupation = $_POST['occupation'];
+    }else{
+        $type = 2;
+        $occupation = "";
+    }
+
     $errors= array();
     $file_name = $_FILES['image']['name'];
     $file_size = $_FILES['image']['size']; 
@@ -33,9 +40,11 @@ if (isset($_POST['submit'])){
         $sql = "SELECT * FROM users WHERE username='$username'";
         $result = mysqli_query($conn, $sql);
         if (!$result->num_rows > 0) {
-            $sql = "INSERT INTO users (stagename, username, password, type, image)
-                    VALUES ('$stagename', '$username', '$password', '$type', '$image')";
+            
+            $sql = "INSERT INTO users (stagename, username, password, type, image, occupation)
+                    VALUES ('$stagename', '$username', '$password', '$type', '$image', '$occupation')";
             $result = mysqli_query($conn, $sql);
+            
             if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
 
             }
@@ -101,6 +110,9 @@ if (isset($_POST['submit'])){
             <img src="./assets/Logo F5.svg" alt="F5MP3" class="logo" />
             <p class="desc">Trang chia sẻ và tải nhạc trực tuyến</p>
             <div class="form-group">
+                <input type="text" class="form-input" placeholder="Nghệ danh" name="stagename" required/>
+            </div>
+            <div class="form-group">
                 <input type="text" class="form-input" placeholder="Tên đăng nhập" name="username" required/>
             </div>
             <div class="form-group">
@@ -118,11 +130,11 @@ if (isset($_POST['submit'])){
                 <img class="avatar"/>
             </div>
             <div class="form-group">
-                <input type="checkbox" name="type" class="checkbox-input" id="type" value="3" required onclick="checkedToAble()"/>
+                <input type="checkbox" name="type" class="checkbox-input" id="type" value="3" onclick="checkedToAble()"/>
                 <label for="type" class="checkbox-label">Đăng ký nghệ sĩ</label>
             </div>
             <div class="form-group">
-                <input type="text" class="form-input"  id="stagename" placeholder="Nghệ danh" name="stagename" required disabled/>
+                <input type="text" class="form-input"  id="stagename" placeholder="Hoạt động(nhóm nhạc, ca sĩ,...)" name="occupation" required disabled/>
             </div>
             <div class="form-group">
                 <button name="submit" class="primary-btn">Đăng ký</button>
