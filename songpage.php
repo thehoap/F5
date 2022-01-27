@@ -11,6 +11,7 @@ if (isset($_GET['audio_id'])){
     $stmt->execute([ $_GET['audio_id'] ]);
     $song1 = $stmt->fetch(PDO::FETCH_ASSOC);
     //echo $song1['audio_id'];
+    if(isset($_SESSION['currUser'])){
     $query = "SELECT * FROM likes WHERE user_id = :user_id AND audio_id = :audio_id";
     $statement = $pdo->prepare($query);
     $statement->execute(
@@ -20,7 +21,7 @@ if (isset($_GET['audio_id'])){
             )
             );
     $count = $statement->rowCount();
-
+    }
 } 
 
 ?>
@@ -108,6 +109,7 @@ if (isset($_GET['audio_id'])){
                     </a>
                     <section class="comment-box">
                         <?php
+                            if(isset($_SESSION['currUser'])){
                             echo "<form method='POST' action='".setComments($conn)."' class='comment-top'>
                                 <img
                                     src=".$_SESSION['avatar'].$_SESSION['path']."
@@ -128,85 +130,11 @@ if (isset($_GET['audio_id'])){
                                 ></textarea>
                                 <button type = 'submit' class='primary-btn comment-btn' name= 'submitComment'>Bình luận</button>
                                 </form>";
+                            }
                             getComment($conn,$_GET['audio_id']);
         
                         ?>
-                        <!-- <form class="comment-top">
-                            <div>
-                                <img
-                                    src="./assets/img/ian-dooley-d1UPkiFd04A-unsplash.jpg"
-                                    alt="Avatar"
-                                    class="user-avatar"
-                                />
-                                <textarea
-                                    name="comment"
-                                    id="comment-input"
-                                    cols="30"
-                                    rows="3"
-                                    class="form-input"
-                                    placeholder="Bạn nghĩ gì về bài nhạc này? "
-                                ></textarea>
-                            </div>
-                            <button type="submit" class="primary-btn comment-btn">
-                                Bình luận
-                            </button>
-                        </form> -->
-                        <!-- <ul class="comment-bottom">
-                            <li class="comment">
-                                <img
-                                    src="./assets/img/andriyko-podilnyk-3p6RZXty-7c-unsplash.jpg"
-                                    alt=""
-                                    class="user-avatar"
-                                />
-                                <div class="comment__desc">
-                                    <span class="comment__name user-name">
-                                        Huong Luu
-                                    </span>
-                                    <p class="comment__content">
-                                        Rất thích những bài của Đen. Ko cần phải có
-                                        những con beat ồn ào, dữ dội. Chỉ cần nhẹ
-                                        nhàng thôi mà sâu thấm lòng người
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="comment">
-                                <img
-                                    src="./assets/img/evan-wise-1wYswsLHXII-unsplash.jpg"
-                                    alt=""
-                                    class="user-avatar"
-                                />
-                                <div class="comment__desc">
-                                    <span class="comment__name user-name">
-                                        Tài Nguyễn Hoàng Phú
-                                    </span>
-                                    <p class="comment__content">
-                                        Bài hát nay mang một “cái tôi trong âm nhạc”
-                                        của Đen rất rõ. Vì vậy hơi khó cảm được với
-                                        đại đa số công chúng. Những ai đã trải qua
-                                        thì mới thấy được cái hay “rất riêng” và
-                                        “độc quyền” trong Trốn Tìm :3
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="comment">
-                                <img
-                                    src="./assets/img/drew-colins-LIEQsu5JuoM-unsplash.jpg"
-                                    alt=""
-                                    class="user-avatar"
-                                />
-                                <div class="comment__desc">
-                                    <span class="comment__name user-name">
-                                        Hồng Nguyễn
-                                    </span>
-                                    <p class="comment__content">
-                                        1 tháng trước Cám ơn Đen Vâu . Nhạc và lời
-                                        bài hát thật sự rất rất hay ... nghe hoài
-                                        nghe mãi mà vẫn thích nghe . Chúc mừng ĐEN
-                                        VÂU nhé 👍👍👏👏👏
-                                    </p>
-                                </div>
-                            </li>
-                        </ul> -->
+                        
                     </section>
                 </section>
             </main>
@@ -221,6 +149,7 @@ if (isset($_GET['audio_id'])){
                         <h4 class="song__title"><?=$song1['title']?></h4>
                         <p class="song__artist"><?=$song1['username']?></p>
                     </div>
+                    <?php if(isset($_SESSION['currUser'])){?>
                     <div class="heart" title="<?=$_GET['audio_id']?>">
                     <?php if($count>0){ ?>
                         <ion-icon name="heart"></ion-icon>
@@ -228,6 +157,7 @@ if (isset($_GET['audio_id'])){
                         <ion-icon name="heart-outline"></ion-icon>
                     <?php } ?>
                     </div>
+                    <?php }?>
                 </div>
                 <div class="player">
                     <div class="controls">
