@@ -71,6 +71,7 @@ if(isset($_POST['submit']))
             <!-- Header -->
             <?php include "templates/header.php";?>
             <main class="main">   
+                <?php if(isset($_SESSION['currUser'])){ ?>
                 <form action="" method="POST" enctype="multipart/form-data" class="form">       
                     <h3 class="upload-title">
                         <?=$_SESSION['name']?>
@@ -108,6 +109,9 @@ if(isset($_POST['submit']))
                         <button name="submit" class="primary-btn">Tải nhạc lên</button>
                     </div>    
                 </form>
+                <?php }else{?>
+                    <a href ="login.php" class="cards-title">Đăng nhập</a>
+                <?php }?>
             </main>
             <!-- Music Player -->
             <div class="music-player">

@@ -16,10 +16,10 @@ if (isset($_SESSION['currUser'])){
         $artists = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     }
 }
-else{
-    header("Location: login.php");
-    exit();
-}
+// else{
+//     header("Location: login.php");
+//     exit();
+// }
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +65,7 @@ else{
             <?php include "templates/header.php";?>
             <main class="main">
                 <!-- Trending Songs -->
+                <?php if (isset($_SESSION['currUser'])){?>
                 <?php if(count($list_songs)>0){?>
                 <section class="cards">
                     <div class="cards-top">
@@ -115,8 +116,10 @@ else{
                     <div class="cards-top">
                         <h3 class="cards-title">Bạn chưa thích bài hát nào cả!</h3>  
                     </div>
-                    <?php }?>
-                <div class="music-player">
+                <?php }?>
+                <?php }else{?>
+                    <a href ="login.php" class="cards-title">Đăng nhập</a>
+                <?php }?>
             </main>
             <!-- Music Player -->
             <!-- <div class="waveform" style="display: none"></div>
