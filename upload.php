@@ -14,9 +14,9 @@ if(isset($_POST['submit']))
     $file_parts =explode('.',$_FILES['thumbnail']['name']);
 
     $thumbnail = $_FILES['thumbnail']['name'];
-    $target = "assets/img/songs".basename($thumbnail);
+    $target = "assets/img/songs/".basename($thumbnail);
 	$audio_location = $_FILES['audio_location']['name'];
-	$audio_path="assets/music/songs".basename($audio_location);
+	$audio_path="assets/music/songs/".basename($audio_location);
 
     $sql = "INSERT INTO songs (user_id, title, category, thumbnail, audio_location)
                     VALUES ('$user_id','$title', '$category', '$thumbnail', '$audio_location')";
@@ -71,7 +71,7 @@ if(isset($_POST['submit']))
             <!-- Header -->
             <?php include "templates/header.php";?>
             <main class="main">   
-                <?php if(isset($_SESSION['currUser'])){ ?>
+                <?php if(isset($_SESSION['currUser']) && $_SESSION['type'] == 3){ ?>
                 <form action="" method="POST" enctype="multipart/form-data" class="form">       
                     <h3 class="upload-title">
                         <?=$_SESSION['name']?>
@@ -102,14 +102,16 @@ if(isset($_POST['submit']))
                             <ion-icon name="musical-notes"></ion-icon>
                             Tệp bài hát
                         </label>
-                        <input type="file" name="track" id ="track-input" required accept="audio/*" onchange="getFileName(this)"/>
+                        <input type="file" name="audio_location" id ="track-input" required accept="audio/*" onchange="getFileName(this)"/>
                         <span class="track-file-name"></span>
                     </div>           
                     <div class="form-group">
                         <button name="submit" class="primary-btn">Tải nhạc lên</button>
                     </div>    
                 </form>
-                <?php }else{?>
+                <?php }else if(isset($_SESSION['currUser']) && $_SESSION['type'] == 2){?>
+                    <div class="cards-title">Bạn phải là nghệ sĩ mới có thể đăng nhạc!!!</div>
+                <?php }else {?>
                     <a href ="login.php" class="cards-title">Đăng nhập</a>
                 <?php }?>
             </main>

@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
 
 		if($row['type'] == 1){
 			$_SESSION['currAdmin'] = $row['type'];
-			header("location:admin.php");
+			header("location:manage_songs.php");
 		}else{
 			header("location:index.php");
 		}
