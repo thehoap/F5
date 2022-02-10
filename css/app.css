@@ -84,11 +84,11 @@ input[type="file"] {
     font-weight: 600;
     color: var(--secondary-color);
 }
-.selected {
+/* .selected {
     background-color: var(--secondary-color);
     color: var(--half-secondary-color);
     border-radius: 1rem;
-}
+} */
 /* HEADER */
 /* SEARCH ENGINE */
 .header {

@@ -88,7 +88,6 @@ include 'showalbum.php';
                     <?php endforeach; ?>
                     </div>
                 </section>
-                <footer style="height: 100px"></footer>
             </main>
             <!-- Music Player -->
             <div class="music-player">

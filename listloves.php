@@ -74,17 +74,21 @@ if (isset($_SESSION['currUser'])){
                     </div>
                     <div class="cards-bottom">
                     <?php foreach($list_songs as $list_song): ?>
-                        <a href="songpage.php?audio_id=<?=$list_song['audio_id']?>" class="card">
+                        <a href="songpage.php?audio_id=<?=$list_song['audio_id']?>" class="card card-song">
+                            <audio src="<?=($_SESSION["links_songs"].$song['audio_location'])?>" class="card-song__audio"></audio>
                             <img
                                 src="<?=($_SESSION["links_pictures"].$list_song['thumbnail'])?>"
                                 
                                 alt=""
-                                class="card-img"
+                                class="card-img card-song__card-img"
                             />
                             <div class="card-content">
-                                <h4 class="card-title"><?=$list_song['title']?></h4>
-                                <span class="card-desc"><?=$list_song['stagename']?></span>
+                                <h4 class="card-title card-song__card-title"><?=$list_song['title']?></h4>
+                                <span class="card-desc card-song__card-desc"><?=$list_song['stagename']?></span>
                             </div>
+                            <button class="play-song-btn" onclick="playPauseTrack(); return false;" >
+                                <ion-icon class="play-icon" name="play" onclick="return false;"></ion-icon> 
+                            </button>
                         </a>
                     <?php endforeach; ?>
                     </div>
@@ -111,6 +115,7 @@ if (isset($_SESSION['currUser'])){
                         </a>
                     <?php endforeach; ?>
                     </div>
+                    <div class="waveform" style="display: none"></div>
                 </section>
                 <?php }else{?>
                     <div class="cards-top">
@@ -122,78 +127,6 @@ if (isset($_SESSION['currUser'])){
                 <?php }?>
             </main>
             <!-- Music Player -->
-            <!-- <div class="waveform" style="display: none"></div>
-                <div class="song">
-                    <img
-                        src="./assets/img/tron tim.jpg"
-                        alt=""
-                        class="song__thumb"
-                    />
-                    <div class="song__desc">
-                        <h4 class="song__title">Trốn tìm</h4>
-                        <p class="song__artist">Đen Vâu</p>
-                    </div>
-                    <div class="heart" onclick="favorite(this)">
-                        <ion-icon name="heart-outline"></ion-icon>
-                    </div>
-                </div>
-                <div class="player">
-                    <div class="controls">
-                        <ion-icon class="shuffle" name="shuffle"></ion-icon>
-                        <ion-icon
-                            class="play-skip-back"
-                            name="play-skip-back"
-                        ></ion-icon>
-                        <div class="play">
-                            <ion-icon class="play-icon" name="play"></ion-icon>
-                        </div>
-                        <ion-icon
-                            class="play-skip-forward"
-                            name="play-skip-forward"
-                        ></ion-icon>
-                        <ion-icon class="repeat" name="repeat"></ion-icon>
-                    </div>
-                    <div class="timer">
-                        <div class="current">1:02</div>
-                        <input
-                            type="range"
-                            name="track"
-                            id="track"
-                            class="range"
-                        />
-                        <audio
-                            src="./assets/music/tron-tim-den-vau.mp3"
-                            id="song"
-                        ></audio>
-                        <div class="duration">4:08</div>
-                    </div>
-                </div>
-                <div class="action">
-                    <a href="./assets/music/tron-tim-den-vau.mp3" download>
-                        <ion-icon
-                            class="cloud-download-outline"
-                            name="cloud-download-outline"
-                        ></ion-icon>
-                    </a>
-                    <div class="volume">
-                        <div class="volume-icon">
-                            <ion-icon
-                                class="volume-high"
-                                name="volume-high"
-                            ></ion-icon>
-                        </div>
-                        <input
-                            type="range"
-                            name="volume"
-                            id="volume"
-                            class="range"
-                            min="0"
-                            max="1"
-                            step="0.01"
-                        />
-                    </div>
-                </div>
-            </div> -->
             <div class="music-player">
                 <div class="song">
                     <img

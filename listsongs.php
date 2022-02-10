@@ -70,20 +70,25 @@ else{
                     </div>
                     <div class="cards-bottom">
                     <?php foreach($list_songs as $list_song): ?>
-                        <a href="songpage.php?audio_id=<?=$list_song['audio_id']?>" class="card">
+                        <a href="songpage.php?audio_id=<?=$list_song['audio_id']?>" class="card card-song">
+                            <audio src="<?=($_SESSION["links_songs"].$list_song['audio_location'])?>" class="card-song__audio"></audio>
                             <img
                                 src="<?=($_SESSION["links_pictures"].$list_song['thumbnail'])?>"
                                 
                                 alt=""
-                                class="card-img"
+                                class="card-img card-song__card-img"
                             />
                             <div class="card-content">
-                                <h4 class="card-title"><?=$list_song['title']?></h4>
-                                <span class="card-desc"><?=$list_song['stagename']?></span>
+                                <h4 class="card-title card-song__card-title"><?=$list_song['title']?></h4>
+                                <span class="card-desc card-song__card-desc"><?=$list_song['stagename']?></span>
                             </div>
+                            <button class="play-song-btn" onclick="playPauseTrack(); return false;" >
+                                <ion-icon class="play-icon" name="play" onclick="return false;"></ion-icon> 
+                            </button>
                         </a>
                     <?php endforeach; ?>
                     </div>
+                    <div class="waveform" style="display: none"></div>
                 </section>
 
                 <!-- Popular Artists -->
@@ -109,20 +114,18 @@ else{
                     <?php }endfor; ?>
                     </div>
                 </section>
-                <footer style="height: 100px"></footer>
             </main>
             <!-- Music Player -->
             <div class="music-player">
-                <div class="waveform" style="display: none"></div>
                 <div class="song">
                     <img
-                        src="./assets/img/tron tim.jpg"
+                        src="https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG11c2ljfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
                         alt=""
                         class="song__thumb"
                     />
                     <div class="song__desc">
-                        <h4 class="song__title">Trốn tìm</h4>
-                        <p class="song__artist">Đen Vâu</p>
+                        <h4 class="song__title">Tên bài hát</h4>
+                        <p class="song__artist">Nghệ sĩ</p>
                     </div>
                     <div class="heart" onclick="favorite(this)">
                         <ion-icon name="heart-outline"></ion-icon>
@@ -145,7 +148,7 @@ else{
                         <ion-icon class="repeat" name="repeat"></ion-icon>
                     </div>
                     <div class="timer">
-                        <div class="current">1:02</div>
+                        <div class="current">00:00</div>
                         <input
                             type="range"
                             name="track"
@@ -153,14 +156,14 @@ else{
                             class="range"
                         />
                         <audio
-                            src="./assets/music/tron-tim-den-vau.mp3"
+                            src="<?=($_SESSION["links_songs"].$song1['audio_location'])?>"
                             id="song"
                         ></audio>
                         <div class="duration">4:08</div>
                     </div>
                 </div>
                 <div class="action">
-                    <a href="./assets/music/tron-tim-den-vau.mp3" download>
+                    <a href="<?=($_SESSION["links_songs"].$song1['audio_location'])?>" download>
                         <ion-icon
                             class="cloud-download-outline"
                             name="cloud-download-outline"
